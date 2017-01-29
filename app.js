@@ -22,9 +22,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// serve bower components as static files so that we can access Bootstrap, Angular, jQuery...
-app.use('/components',  express.static(__dirname + '/bower_components'));
-
 app.use('/', index);
 app.use('/users', users);
 

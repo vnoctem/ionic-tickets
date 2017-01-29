@@ -51,6 +51,3 @@ jspm_packages
 
 # VS code
 .vscode
-
-# bower
-bower_components
