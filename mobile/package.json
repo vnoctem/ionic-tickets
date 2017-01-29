@@ -39,6 +39,8 @@
     "cordova-plugin-splashscreen",
     "ionic-plugin-keyboard"
   ],
-  "cordovaPlatforms": [],
+  "cordovaPlatforms": [
+    "android@6.1.2"
+  ],
   "description": "mobile: An Ionic project"
 }
