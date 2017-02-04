@@ -1,10 +1,9 @@
+import { FriendsPage } from './../pages/friends/friends';
+import { TicketsPage } from './../pages/tickets/tickets';
+import { AuthenticationPage } from './../pages/authentication/authentication';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
-
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
-
 
 @Component({
   templateUrl: 'app.html'
@@ -12,7 +11,7 @@ import { Page2 } from '../pages/page2/page2';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = Page1;
+  rootPage: any = AuthenticationPage;
 
   pages: Array<{title: string, component: any}>;
 
@@ -21,8 +20,8 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Page One', component: Page1 },
-      { title: 'Page Two', component: Page2 }
+      { title: 'Billets', component: TicketsPage },
+      { title: 'Amis', component: FriendsPage }
     ];
 
   }
