@@ -1,3 +1,4 @@
+import { ProVersionPage } from './../pages/pro-version/pro-version';
 import { FriendsPage } from './../pages/friends/friends';
 import { TicketsPage } from './../pages/tickets/tickets';
 import { AuthenticationPage } from './../pages/authentication/authentication';
@@ -21,9 +22,9 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Billets', component: TicketsPage },
-      { title: 'Amis', component: FriendsPage }
+      { title: 'Amis', component: FriendsPage },
+      { title: 'Version Pro', component: ProVersionPage }
     ];
-
   }
 
   initializeApp() {

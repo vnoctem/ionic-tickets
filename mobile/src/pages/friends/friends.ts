@@ -1,3 +1,4 @@
+import { ShowsPage } from './../shows/shows';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -17,6 +18,11 @@ export class FriendsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad FriendsPage');
+  }
+
+  // navigation for prototype (go to ShowsPage)
+  goToShows() {
+    this.navCtrl.setRoot(ShowsPage);
   }
 
 }
