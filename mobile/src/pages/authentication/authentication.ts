@@ -1,4 +1,3 @@
-import { FriendsPage } from './../friends/friends';
 import { TicketsPage } from './../tickets/tickets';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
@@ -23,7 +22,7 @@ export class AuthenticationPage {
 
   // navigation for prototype (go to TicketsPage)
   goToTickets() {
-    this.navCtrl.setRoot(FriendsPage);
+    this.navCtrl.setRoot(TicketsPage);
   }
 
 }
