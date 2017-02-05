@@ -21275,3 +21275,20 @@ sub {
     padding-top: calc(16px + 20px);
   }
 }
+
+page-friends .item-md ion-avatar img {
+  width: 60px;
+  height: 60px;
+}
+
+page-shows .item-md ion-avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 0px;
+}
+
+page-tickets .item-md ion-avatar img {
+  width: 100px;
+  height: 100px;
+  border-radius: 0px;
+}

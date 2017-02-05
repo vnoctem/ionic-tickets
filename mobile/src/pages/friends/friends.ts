@@ -20,9 +20,9 @@ export class FriendsPage {
     console.log('ionViewDidLoad FriendsPage');
   }
 
-  // navigation for prototype (go to ShowsPage)
+  // navigation for prototype (go to ShowsPage of "Ben Smith")
   goToShows() {
-    this.navCtrl.setRoot(ShowsPage);
+    this.navCtrl.push(ShowsPage);
   }
 
 }
