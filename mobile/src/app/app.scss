@@ -33,5 +33,16 @@
 }
 
 button[ion-item] ion-icon {
-    padding-right: 10px;
+    width: 30px;
+}
+
+.menu-inner {
+    .list-md .item-block .item-inner {
+        border: 0px;
+    }
+
+    button:last-child {
+        margin-top: 8px;
+        border-top: 1px solid #dedede;
+    }
 }
