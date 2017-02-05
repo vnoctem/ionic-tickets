@@ -4,6 +4,7 @@ import { FriendsPage } from './../pages/friends/friends';
 import { QrCodePage } from './../pages/qr-code/qr-code';
 import { TicketsPage } from './../pages/tickets/tickets';
 import { AuthenticationPage } from './../pages/authentication/authentication';
+import { AdBannerComponent } from './../components/ad-banner/ad-banner'
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -16,7 +17,8 @@ import { MyApp } from './app.component';
     QrCodePage,
     FriendsPage,
     ShowsPage,
-    ProVersionPage
+    ProVersionPage,
+    AdBannerComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp)

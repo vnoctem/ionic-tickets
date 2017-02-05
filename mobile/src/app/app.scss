@@ -73,24 +73,6 @@ button[ion-item] ion-icon {
     height: 0px;
 }
 
-.banner {
-    height: 80px;
-    padding: 0px;
-
-    .toolbar-background {
-        background-color: transparent;
-    }
-
-    .toolbar-content-md {
-        height: 100%;
-        text-align: center;
-
-        img {
-            height: 100%;
-        }
-    }
-}
-
 .disconnected-reminder {
     text-align: center;
     min-height: 0px;
