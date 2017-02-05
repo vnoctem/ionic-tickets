@@ -5,17 +5,40 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-
   <ion-navbar>
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>ProVersion</ion-title>
+    <ion-title>Acheter la version Pro</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-
+  <h3>Acheter la version sans publicité!</h3>
+  <p>
+    <ion-label class="label-price">2.00 $</ion-label>
+  </p>
+  <h4>Informations de paiement</h4>
+  <ion-list>
+    <ion-item>
+      <ion-label stacked>Nom sur la carte</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Numéro de la carte</ion-label>
+      <ion-input type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Date d'expiration</ion-label>
+      <ion-select class="month-select" [(ngModel)]="expirationMonth" (ionChange)="onChange(expirationMonth)" cancelText="Annuler" placeholder="Mois">
+        <ion-option value ="{{item.value}}" *ngFor="let item of months">{{item.text}}</ion-option>
+      </ion-select>
+      <ion-select [(ngModel)]="expirationYear" (ionChange)="onChange(expirationYear)" cancelText="Annuler" placeholder="Année">
+        <ion-option *ngFor="let item of years">{{item.text}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <div class="bottom-block-button">
+    <button ion-button class="disable-hover button button-md button-default button-default-md button-block button-block-md button-md-primary" (click)="confirmPayment()">Confirmer le paiement</button>
+  </div>
 </ion-content>
