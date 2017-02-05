@@ -19,8 +19,4 @@ export class QrCodePage {
     this.isLocal = navParams.get('isLocal');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad QrCodePage');
-  }
-
 }

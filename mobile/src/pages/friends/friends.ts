@@ -16,10 +16,6 @@ export class FriendsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad FriendsPage');
-  }
-
   // navigation for prototype (go to ShowsPage of "Ben Smith")
   goToShows() {
     this.navCtrl.push(ShowsPage);

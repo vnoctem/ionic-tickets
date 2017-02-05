@@ -16,10 +16,6 @@ export class AuthenticationPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AuthenticationPage');
-  }
-
   // navigation for prototype (go to TicketsPage)
   goToTickets() {
     this.navCtrl.setRoot(TicketsPage, { 'isLocal': false });

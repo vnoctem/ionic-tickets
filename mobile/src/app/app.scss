@@ -102,3 +102,13 @@ button[ion-item] ion-icon {
         background-color: #fcf8e3;
     }
 }
+
+.alert-md {
+    .alert-head {
+        padding: 10px;
+    }
+
+    .alert-button-group {
+        padding: 0px;
+    }
+}
