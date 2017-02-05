@@ -3,8 +3,31 @@ page-pro-version {
         font-size: 3em;
         color: #df5138;
         text-align: center;
+        font-weight: bold;
     }
 
-   
+    .message {
+        background-color: #ececec;
+
+        h3 {
+            margin-top: 0px;
+        }
+    }
+
+   .date .input-wrapper {
+       flex-direction: row;
+       margin-top: 20px;
+
+       & > .label {
+           margin-top: 11px;
+       }
+
+       ion-select {
+           .select-placeholder, .select-text {
+               padding-left: 10px;
+               padding-right: 5px;
+           }
+       }
+   }
 
 }
