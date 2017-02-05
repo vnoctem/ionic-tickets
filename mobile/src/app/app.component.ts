@@ -14,16 +14,16 @@ export class MyApp {
 
   rootPage: any = AuthenticationPage;
 
-  pages: Array<{title: string, component: any}>;
+  pages: Array<{title: string, component: any, icon: string}>;
 
   constructor(public platform: Platform) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Billets', component: TicketsPage },
-      { title: 'Amis', component: FriendsPage },
-      { title: 'Version Pro', component: ProVersionPage }
+      { title: 'Billets', component: TicketsPage, icon: 'paper' },
+      { title: 'Amis', component: FriendsPage, icon: 'person' },
+      { title: 'Version Pro', component: ProVersionPage, icon: 'cash' }
     ];
   }
 
