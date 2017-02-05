@@ -1,3 +1,4 @@
+import { QrCodePage } from './../qr-code/qr-code';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -17,6 +18,11 @@ export class TicketsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketsPage');
+  }
+
+  // navigation for prototype (go to QrCodePage of "Borgeous" show)
+  goToQRCode() {
+    this.navCtrl.push(QrCodePage);
   }
 
 }
