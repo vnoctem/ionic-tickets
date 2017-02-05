@@ -1,14 +1,24 @@
+import { ShowsPage } from './../pages/shows/shows';
+import { ProVersionPage } from './../pages/pro-version/pro-version';
+import { FriendsPage } from './../pages/friends/friends';
+import { QrCodePage } from './../pages/qr-code/qr-code';
+import { TicketsPage } from './../pages/tickets/tickets';
+import { AuthenticationPage } from './../pages/authentication/authentication';
+import { AdBannerComponent } from './../components/ad-banner/ad-banner'
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { Page1 } from '../pages/page1/page1';
-import { Page2 } from '../pages/page2/page2';
 
 @NgModule({
   declarations: [
     MyApp,
-    Page1,
-    Page2
+    AuthenticationPage,
+    TicketsPage,
+    QrCodePage,
+    FriendsPage,
+    ShowsPage,
+    ProVersionPage,
+    AdBannerComponent
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -16,8 +26,12 @@ import { Page2 } from '../pages/page2/page2';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    Page1,
-    Page2
+    AuthenticationPage,
+    TicketsPage,
+    QrCodePage,
+    FriendsPage,
+    ShowsPage,
+    ProVersionPage
   ],
   providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })

@@ -1,0 +1,49 @@
+<!--
+  Generated template for the Tickets page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button *ngIf="!isLocal" ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Billets</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content fullscreen="true">
+  <ion-list>
+    <ion-item (click)="goToQRCode()">
+      <ion-avatar item-left (click)="showPhotoOriginalSize($event)">
+        <img src="../../assets/img/shows/borgeous.jpg">
+      </ion-avatar>
+      <h1>Borgeous</h1>
+      <h2>Borgeous</h2>
+      <p>24.00 $</p>
+      <p>2017-02-18 22h00</p>
+      <p>New City Gas</p>
+      <p>950 Rue Ottawa, Montréal, QC H3C 1S4<p>
+    </ion-item>
+    <ion-item>
+      <ion-avatar item-left>
+        <img src="../../assets/img/shows/luzia.jpg">
+      </ion-avatar>
+      <h1>Luzia</h1>
+      <h2>Cirque du Soleil</h2>
+      <p>65.00 $</p>
+      <p>2017-06-26 21h00</p>
+      <p>Grand Chapiteau</p>
+      <p>Quai Jacques-Cartier, rue de la Commune <br />Est, Montréal, QC H2Y 1J1</p>
+    </ion-item>
+  </ion-list>
+  
+</ion-content>
+
+<ion-footer>
+  <ad-banner *ngIf="!isLocal"></ad-banner>
+  <ion-toolbar *ngIf="isLocal" class="disconnected-reminder">
+    <span>Aucun accès à l'Internet</span>
+  </ion-toolbar>
+</ion-footer>

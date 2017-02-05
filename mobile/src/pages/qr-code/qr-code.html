@@ -1,0 +1,24 @@
+<!--
+  Generated template for the QrCode page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Borgeous</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding fullscreen="true">
+  <ion-label stacked>Propriétaire</ion-label>
+  <ion-label class="label-ticket-owner">Ben Smith</ion-label>
+  <img class="qr-code" src="../../assets/img/qr-code/qrcode.jpg">
+</ion-content>
+
+<ion-footer>
+  <ad-banner *ngIf="!isLocal"></ad-banner>
+  <ion-toolbar *ngIf="isLocal" class="disconnected-reminder">
+    <span>Aucun accès à l'Internet</span>
+  </ion-toolbar>
+</ion-footer>

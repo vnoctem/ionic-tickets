@@ -14,3 +14,87 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.profile {    
+    padding: 60px;
+    background-color: $sidemenu-background;
+
+    img {
+        border-radius: 50%;
+    }
+
+    label {
+        display: block;
+        width: 100%;
+        text-align: center;
+        padding-top: 10px;
+        font-size: 1.5em;
+    }
+}
+
+button[ion-item] ion-icon {
+    padding-right: 10px;
+}
+
+.toolbar-background-md {
+    background-color: $header-background;
+}
+
+.menu-inner {
+    .list-md .item-block .item-inner {
+        border: 0px;
+    }
+
+    button:last-child {
+        margin-top: 8px;
+        border-top: 1px solid #dedede;
+    }
+}
+
+.bottom-page {
+    position: absolute; 
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+}
+
+.bottom-block-button {
+    @extend .bottom-page;
+
+    button {
+        margin: 0px;
+        width: 100%;
+        height: 80px;
+    }
+}
+
+.footer-md::before {
+    height: 0px;
+}
+
+.disconnected-reminder {
+    text-align: center;
+    min-height: 0px;
+    padding: 0px;
+    
+    span {
+        padding: 5px;
+        display: block;
+        background-color: #fcf8e3;
+    }
+}
+
+.alert-md {
+    .alert-head {
+        padding: 10px;
+    }
+
+    .alert-button-group {
+        padding: 0px;
+    }
+}
+
+.item-md p {
+    white-space: normal;
+}
