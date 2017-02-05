@@ -90,3 +90,15 @@ button[ion-item] ion-icon {
         }
     }
 }
+
+.disconnected-reminder {
+    text-align: center;
+    min-height: 0px;
+    padding: 0px;
+    
+    span {
+        padding: 5px;
+        display: block;
+        background-color: #fcf8e3;
+    }
+}

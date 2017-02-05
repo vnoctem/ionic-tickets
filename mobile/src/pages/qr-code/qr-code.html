@@ -17,7 +17,10 @@
 </ion-content>
 
 <ion-footer>
-  <ion-toolbar class="banner">
+  <ion-toolbar *ngIf="!isLocal" class="banner">
     <img src="../../assets/img/ad banner.jpg" />
+  </ion-toolbar>
+  <ion-toolbar *ngIf="isLocal" class="disconnected-reminder">
+    <span>Aucun accès à l'Internet</span>
   </ion-toolbar>
 </ion-footer>

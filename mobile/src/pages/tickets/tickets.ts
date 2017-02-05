@@ -14,7 +14,11 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class TicketsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  private isLocal: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.isLocal = navParams.get('isLocal');
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TicketsPage');
@@ -22,7 +26,7 @@ export class TicketsPage {
 
   // navigation for prototype (go to QrCodePage of "Borgeous" show)
   goToQRCode() {
-    this.navCtrl.push(QrCodePage);
+    this.navCtrl.push(QrCodePage, { 'isLocal': this.isLocal });
   }
 
 }

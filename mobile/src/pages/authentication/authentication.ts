@@ -22,7 +22,7 @@ export class AuthenticationPage {
 
   // navigation for prototype (go to TicketsPage)
   goToTickets() {
-    this.navCtrl.setRoot(TicketsPage);
+    this.navCtrl.setRoot(TicketsPage, { 'isLocal': false });
   }
 
 }

@@ -13,7 +13,11 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class QrCodePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  private isLocal: boolean;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.isLocal = navParams.get('isLocal');
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad QrCodePage');
