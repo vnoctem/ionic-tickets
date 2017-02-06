@@ -26,8 +26,8 @@
       <p>New City Gas</p>
       <p>950 Rue Ottawa, Montréal, QC H3C 1S4<p>
     </ion-item>
-    <ion-item>
-      <ion-avatar item-left>
+    <ion-item (click)="goToQRCode()">
+      <ion-avatar item-left (click)="showPhotoOriginalSize($event)">
         <img src="../../assets/img/shows/luzia.jpg">
       </ion-avatar>
       <h1>Luzia</h1>
