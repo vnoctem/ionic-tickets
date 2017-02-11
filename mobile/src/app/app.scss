@@ -15,23 +15,6 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-.profile {    
-    padding: 60px;
-    background-color: $sidemenu-background;
-
-    img {
-        border-radius: 50%;
-    }
-
-    label {
-        display: block;
-        width: 100%;
-        text-align: center;
-        padding-top: 10px;
-        font-size: 1.5em;
-    }
-}
-
 button[ion-item] ion-icon {
     padding-right: 10px;
 }

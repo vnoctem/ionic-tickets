@@ -1,19 +1,21 @@
+$ad-banner-height: 80px;
+
 ad-banner {
-    .banner {
-        height: 80px;
-        padding: 0px;
+    height: $ad-banner-height;
+    padding: 0px;
+    display: block;
 
-        .toolbar-background {
-            background-color: transparent;
-        }
+    .toolbar-background {
+        background-color: transparent;
+    }
 
-        .toolbar-content-md {
+    .toolbar-content-md {
+        height: $ad-banner-height;
+        text-align: center;
+
+        img {
             height: 100%;
-            text-align: center;
-
-            img {
-                height: 100%;
-            }
+            width: auto;
         }
     }
 }

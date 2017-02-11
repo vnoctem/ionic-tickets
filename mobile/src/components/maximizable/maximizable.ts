@@ -1,13 +1,17 @@
-import { Directive, ElementRef } from '@angular/core';
+import { Directive } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 
-/* 
-  Show the image with its original size 
+/*
+  Generated class for the Maximizable directive.
+
+  See https://angular.io/docs/ts/latest/api/core/index/DirectiveMetadata-class.html
+  for more info on Angular 2 Directives.
 */
 @Directive({
-  selector: '[maximizable]'
+  selector: '[maximizable]' // Attribute selector
 })
-export class MaximizableDirective {
+export class Maximizable {
 
   constructor(el: ElementRef, public alertCtrl: AlertController) {
     // bind onclick programmatically so that every tag which needs this feature

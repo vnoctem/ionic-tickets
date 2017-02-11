@@ -5,18 +5,21 @@ import { AuthenticationPage } from './../pages/authentication/authentication';
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
+import { AuthController } from './../providers/auth-controller';
+import { ProfileComponent } from './../components/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
+  @ViewChild(ProfileComponent) profile: ProfileComponent;
 
   rootPage: any = AuthenticationPage;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
-  constructor(public platform: Platform) {
+  constructor(public platform: Platform, public authCtrl: AuthController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -33,6 +36,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
       Splashscreen.hide();
+
+      this.authCtrl.addObserver(this.profile);
     });
   }
 

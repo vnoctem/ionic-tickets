@@ -21,7 +21,9 @@ router.post('/login', function (req, res, next) {
                 'success': true, 
                 'token': `JWT ${token}` ,
                 'user': {
-                    username: admin.username
+                    'username': admin.username,
+                    'fullname': admin.fullname,
+                    'photo': admin.photo
                 }
             });
         } else {

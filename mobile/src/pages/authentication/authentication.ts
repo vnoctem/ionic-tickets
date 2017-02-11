@@ -25,8 +25,8 @@ export class AuthenticationPage {
     this.authCtrl.postLogin({
       'username': this.username,
       'password': this.password
-    }).then((res) => {
-      this.navCtrl.setRoot(TicketsPage, { 'isLocal': false });
+    }).then((currentUser) => {
+      this.navCtrl.setRoot(TicketsPage);
     }).catch((err) => {
       this.error = err;
     });
