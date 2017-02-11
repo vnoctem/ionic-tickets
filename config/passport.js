@@ -3,7 +3,7 @@ var ExtractJwt = require('passport-jwt').ExtractJwt;
 var bcrypt = require('bcrypt');
 
 // Get all needed data
-var admin = require('../model/admin');
+var admin = require('../models/admin');
 var secret = require('../config/secret');
 
 module.exports = function (passport) {
