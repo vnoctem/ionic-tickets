@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
 
 /*
   Generated class for the Shows page.
@@ -14,13 +13,6 @@ import { AlertController } from 'ionic-angular';
 })
 export class ShowsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {}
-
-  showPhotoOriginalSize(event) {
-    let alert = this.alertCtrl.create({
-      subTitle: event.target.outerHTML
-    });
-    alert.present();
-  }
+  constructor(public navCtrl: NavController, public navParams: NavParams) {}
 
 }
