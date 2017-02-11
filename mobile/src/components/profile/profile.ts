@@ -19,8 +19,8 @@ export class ProfileComponent implements AuthObserver {
   }
 
   public notify(currentUser) {
-    this.fullname = currentUser.user.fullname;
-    this.photo = currentUser.user.photo;
+    this.fullname = currentUser.fullname;
+    this.photo = currentUser.photo;
   }
 
 }

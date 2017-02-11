@@ -11,6 +11,7 @@ import { MyApp } from './app.component';
 import { Maximizable } from './../components/maximizable/maximizable';
 import { ProfileComponent } from './../components/profile/profile';
 import { AuthController } from './../providers/auth-controller';
+import { TicketController } from './../providers/ticket-controller';
 import { AppSettings } from './../providers/app-settings';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { AppSettings } from './../providers/app-settings';
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     AuthController, 
+    TicketController,
     AppSettings
   ]
 })

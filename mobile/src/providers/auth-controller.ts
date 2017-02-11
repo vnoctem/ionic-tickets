@@ -20,8 +20,8 @@ export class AuthController {
 
   private observers: Array<AuthObserver> = [];
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
-  private socialStaticUrl: string = this.appSettings.getSocialStaticUrl();
   private currentUser: any;
+  private token: string;
 
   constructor(public http: Http, public appSettings: AppSettings) {
   }
@@ -31,9 +31,8 @@ export class AuthController {
       .map(res => res.json())
       .toPromise()
       .then((res: any) => {
-        this.currentUser = res;
-        //add the domain for photo
-        this.currentUser.user.photo = this.socialStaticUrl + this.currentUser.user.photo;
+        this.currentUser = res.user;
+        this.token = res.token;
         this.notifyObservers();
         return this.currentUser;
       });
@@ -47,6 +46,10 @@ export class AuthController {
 
   public getCurrentUser() {
     return this.currentUser;
+  }
+
+  public getToken() {
+    return this.token;
   }
 
   public addObserver(observer: AuthObserver) {

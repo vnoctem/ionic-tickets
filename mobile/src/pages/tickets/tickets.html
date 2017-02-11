@@ -15,27 +15,16 @@
 
 <ion-content fullscreen="true">
   <ion-list>
-    <ion-item (click)="goToQRCode()">
+    <ion-item *ngFor="let t of tickets" (click)="goToQRCode(t)">
       <ion-avatar item-left maximizable>
-        <img src="assets/img/shows/borgeous.jpg">
+        <img src="{{t.poster}}">
       </ion-avatar>
-      <h1>Borgeous</h1>
-      <h2>Borgeous</h2>
-      <p>24.00 $</p>
-      <p>2017-02-18 22h00</p>
-      <p>New City Gas</p>
-      <p>950 Rue Ottawa, Montréal, QC H3C 1S4<p>
-    </ion-item>
-    <ion-item (click)="goToQRCode()">
-      <ion-avatar item-left maximizable>
-        <img src="assets/img/shows/luzia.jpg">
-      </ion-avatar>
-      <h1>Luzia</h1>
-      <h2>Cirque du Soleil</h2>
-      <p>65.00 $</p>
-      <p>2017-06-26 21h00</p>
-      <p>Grand Chapiteau</p>
-      <p>Quai Jacques-Cartier, rue de la Commune <br />Est, Montréal, QC H2Y 1J1</p>
+      <h1>{{t.showName}}</h1>
+      <h2>{{t.artistName}}</h2>
+      <p>{{t.prix}} $</p>
+      <p>{{t.datetime}}</p>
+      <p>{{t.location}}</p>
+      <p>{{t.address}}<p>
     </ion-item>
   </ion-list>
   

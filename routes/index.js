@@ -24,7 +24,7 @@ router.post('/login', function (req, res, next) {
                     'id': admin.id,
                     'username': admin.username,
                     'fullname': admin.fullname,
-                    'photo': admin.photo
+                    'photo': 'http://' + req.headers.host + admin.photo
                 }
             });
         } else {

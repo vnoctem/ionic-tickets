@@ -1,6 +1,8 @@
 import { QrCodePage } from './../qr-code/qr-code';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { TicketController } from './../../providers/ticket-controller'
+import { AuthController } from './../../providers/auth-controller'
 
 /*
   Generated class for the Tickets page.
@@ -15,12 +17,18 @@ import { NavController, NavParams } from 'ionic-angular';
 export class TicketsPage {
 
   private isLocal: boolean = false;
+  private tickets: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ticketCtrl: TicketController, public authCtrl: AuthController) {
+    ticketCtrl.getTickets(
+      authCtrl.getCurrentUser().id,
+      authCtrl.getToken()
+    ).then((res) => {
+      this.tickets = res;
+    });
   }
 
-  // navigation for prototype (go to QrCodePage of "Borgeous" show)
-  goToQRCode() {
+  goToQRCode(ticket) {
     this.navCtrl.push(QrCodePage);
   }
 
