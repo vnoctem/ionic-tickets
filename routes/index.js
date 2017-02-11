@@ -1,9 +1,33 @@
-var express = require('express');
-var router = express.Router();
+var jwt = require('jwt-simple');
+var _ = require('lodash');
+var bcrypt = require('bcrypt');
+var router = require('express').Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Mobile billets' });
+// DATA
+var admin = require('../models/admin');
+var secret = require('../config/secret');
+
+router.post('/login', function (req, res, next) {
+    // Compare password with bcrypt
+    bcrypt.compare(req.body.password, admin.password).then(function (success) {
+        if (success) {
+            // Replace 'password' element by the one with clear text
+            var ret = _.cloneDeep(admin);
+            ret['password'] = req.body.password;
+            // Create token
+            var token = jwt.encode(ret, secret.key);
+            // Send back the token
+            res.json({ 
+                'success': true, 
+                'token': `JWT ${token}` ,
+                'user': {
+                    username: admin.username
+                }
+            });
+        } else {
+            res.json({ 'success': false });
+        }
+    });
 });
 
 module.exports = router;
