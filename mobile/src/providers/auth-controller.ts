@@ -4,6 +4,11 @@ import { AppSettings } from './app-settings';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+const KEYS = {
+  user: 'billets-user',
+  token: 'billets-token'
+}
+
 // classes wanted to be called after login
 export interface AuthObserver {
   notify(currentUser: any);
@@ -24,6 +29,9 @@ export class AuthController {
   private token: string;
 
   constructor(public http: Http, public appSettings: AppSettings) {
+    // look for token and user in local storage first
+    this.currentUser = JSON.parse(localStorage.getItem(KEYS.user));
+    this.token = localStorage.getItem(KEYS.token);
   }
 
   public postLogin(data: any) {
@@ -33,6 +41,9 @@ export class AuthController {
       .then((res: any) => {
         this.currentUser = res.user;
         this.token = res.token;
+        // Save token and user locally
+        localStorage.setItem(KEYS.token, this.token);
+        localStorage.setItem(KEYS.user, JSON.stringify(this.currentUser));
         this.notifyObservers();
         return this.currentUser;
       });
@@ -54,6 +65,10 @@ export class AuthController {
 
   public addObserver(observer: AuthObserver) {
     this.observers.push(observer);
+  }
+
+  public hasBeenAuthenticated() {
+    return this.currentUser && this.token;
   }
 
 }

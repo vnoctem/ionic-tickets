@@ -15,7 +15,7 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   @ViewChild(ProfileComponent) profile: ProfileComponent;
 
-  rootPage: any = AuthenticationPage;
+  rootPage: any;
 
   pages: Array<{title: string, component: any, icon: string}>;
 
@@ -37,7 +37,14 @@ export class MyApp {
       StatusBar.styleDefault();
       Splashscreen.hide();
 
-      this.authCtrl.addObserver(this.profile);
+      if (this.authCtrl.hasBeenAuthenticated()) {
+        this.rootPage = TicketsPage;
+        // notify profile directly since the user has been authenticated
+        this.profile.notify(this.authCtrl.getCurrentUser());
+      } else {
+        this.rootPage = AuthenticationPage;
+        this.authCtrl.addObserver(this.profile);
+      }      
     });
   }
 

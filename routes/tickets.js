@@ -6,7 +6,7 @@ var _ = require('lodash');
 router.get('/:userId', passport.authenticate('jwt', { session: false }), function (req, res) {
     for (let i = 0; i < usersTickets.length; i++) {
         if (usersTickets[i].userId == req.params.userId) {
-            let tickets = usersTickets[i].tickets;
+            let tickets = _.cloneDeep(usersTickets[i].tickets);
             _.map(tickets, (ticket) => {
                 ticket.poster = 'http://' + req.headers.host + ticket.poster;
                 return ticket;
