@@ -9,6 +9,8 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { MaximizableDirective } from './../attributes/maximizable.directive';
+import { AuthController } from './../providers/auth-controller';
+import { AppSettings } from './../providers/app-settings';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,10 @@ import { MaximizableDirective } from './../attributes/maximizable.directive';
     ShowsPage,
     ProVersionPage
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
+    AuthController, 
+    AppSettings
+  ]
 })
 export class AppModule {}
