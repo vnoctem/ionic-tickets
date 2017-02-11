@@ -21,6 +21,7 @@ router.post('/login', function (req, res, next) {
                 'success': true, 
                 'token': `JWT ${token}` ,
                 'user': {
+                    'id': admin.id,
                     'username': admin.username,
                     'fullname': admin.fullname,
                     'photo': admin.photo
