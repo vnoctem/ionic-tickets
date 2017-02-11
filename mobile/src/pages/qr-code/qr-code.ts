@@ -14,8 +14,10 @@ import { NavController, NavParams } from 'ionic-angular';
 export class QrCodePage {
 
   private isLocal: boolean = false;
+  private ticket: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.ticket = navParams.get('ticket');
   }
 
 }

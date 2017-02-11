@@ -29,7 +29,7 @@ export class TicketsPage {
   }
 
   goToQRCode(ticket) {
-    this.navCtrl.push(QrCodePage);
+    this.navCtrl.push(QrCodePage, { 'ticket': ticket });
   }
 
 }
