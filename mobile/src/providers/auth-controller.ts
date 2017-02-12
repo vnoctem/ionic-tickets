@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { AppSettings } from './app-settings';
+import { SharedService } from './shared-service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 const KEYS = {
   user: 'billets-user',
   token: 'billets-token'
-}
-
-// classes wanted to be called after login
-export interface AuthObserver {
-  notify(currentUser: any);
 }
 
 /*
@@ -23,12 +19,11 @@ export interface AuthObserver {
 @Injectable()
 export class AuthController {
 
-  private observers: Array<AuthObserver> = [];
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
   private currentUser: any;
   private token: string;
 
-  constructor(public http: Http, public appSettings: AppSettings) {
+  constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService) {
     // look for token and user in local storage first
     this.currentUser = JSON.parse(localStorage.getItem(KEYS.user));
     this.token = localStorage.getItem(KEYS.token);
@@ -44,15 +39,10 @@ export class AuthController {
         // Save token and user locally
         localStorage.setItem(KEYS.token, this.token);
         localStorage.setItem(KEYS.user, JSON.stringify(this.currentUser));
-        this.notifyObservers();
+        // notify all subscribers
+        this.sharedService.notifyAuthSubscribers();
         return this.currentUser;
       });
-  }
-
-  private notifyObservers() {
-    for (let obs of this.observers) {
-      obs.notify(this.currentUser);
-    }
   }
 
   public getCurrentUser() {
@@ -61,10 +51,6 @@ export class AuthController {
 
   public getToken() {
     return this.token;
-  }
-
-  public addObserver(observer: AuthObserver) {
-    this.observers.push(observer);
   }
 
   public hasBeenAuthenticated() {

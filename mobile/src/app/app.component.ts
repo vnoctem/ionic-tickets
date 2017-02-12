@@ -2,24 +2,27 @@ import { ProVersionPage } from './../pages/pro-version/pro-version';
 import { FriendsPage } from './../pages/friends/friends';
 import { TicketsPage } from './../pages/tickets/tickets';
 import { AuthenticationPage } from './../pages/authentication/authentication';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { AuthController } from './../providers/auth-controller';
-import { ProfileComponent } from './../components/profile/profile';
+import { SharedService } from './../providers/shared-service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnDestroy {
   @ViewChild(Nav) nav: Nav;
-  @ViewChild(ProfileComponent) profile: ProfileComponent;
 
   rootPage: any;
+  pages: Array<{ title: string, component: any, icon: string }>;
+  private fullname: string;
+  private photo: string;
 
-  pages: Array<{title: string, component: any, icon: string}>;
+  private AuthSubscription: Subscription;
 
-  constructor(public platform: Platform, public authCtrl: AuthController) {
+  constructor(public platform: Platform, public authCtrl: AuthController, public sharedService: SharedService) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -39,12 +42,12 @@ export class MyApp {
 
       if (this.authCtrl.hasBeenAuthenticated()) {
         this.rootPage = TicketsPage;
-        // notify profile directly since the user has been authenticated
-        this.profile.notify(this.authCtrl.getCurrentUser());
+        this.updateProfile(this.authCtrl.getCurrentUser());
       } else {
         this.rootPage = AuthenticationPage;
-        this.authCtrl.addObserver(this.profile);
-      }      
+        this.AuthSubscription = this.sharedService.getAuthSubject()
+          .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
+      }
     });
   }
 
@@ -52,5 +55,15 @@ export class MyApp {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  private updateProfile(currentUser) {
+    this.fullname = currentUser.fullname;
+    this.photo = currentUser.photo;
+  }
+
+  public ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.AuthSubscription.unsubscribe();
   }
 }

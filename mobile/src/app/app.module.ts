@@ -9,10 +9,10 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { Maximizable } from './../components/maximizable/maximizable';
-import { ProfileComponent } from './../components/profile/profile';
 import { AuthController } from './../providers/auth-controller';
 import { TicketController } from './../providers/ticket-controller';
 import { ProVersionController } from './../providers/pro-version-controller';
+import { SharedService } from './../providers/shared-service';
 import { AppSettings } from './../providers/app-settings';
 
 @NgModule({
@@ -25,8 +25,7 @@ import { AppSettings } from './../providers/app-settings';
     ShowsPage,
     ProVersionPage,
     AdBannerComponent,
-    Maximizable,
-    ProfileComponent
+    Maximizable
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -46,7 +45,8 @@ import { AppSettings } from './../providers/app-settings';
     AuthController, 
     TicketController,
     AppSettings,
-    ProVersionController
+    ProVersionController,
+    SharedService
   ]
 })
 export class AppModule {}
