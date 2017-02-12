@@ -6,21 +6,21 @@ module.exports = [{
             'fullname': 'Ben Smith',
             'email': 'ben.smith@gmail.com',
             'address': 'Québec, QC',
-            'photo': 'ben.png'
+            'photo': '/images/friends/ben.png'
         },
         {
             'id': 3,
             'fullname': 'Max Anderson',
             'email': 'max.anderson@gmail.com',
             'address': 'Montréal, QC',
-            'photo': 'max.png'
+            'photo': '/images/friends/max.png'
         },
         {
             'id': 4,
             'fullname': 'Mike Watson',
             'email': 'mike.watson@gmail.com',
             'address': 'Laval, QC',
-            'photo': 'mike.png'
+            'photo': '/images/friends/mike.png'
         }
     ]
 }];
