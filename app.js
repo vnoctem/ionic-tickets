@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var tickets = require('./routes/tickets');
 var pro = require('./routes/proVersion');
+var friends = require('./routes/friends');
 var passport = require('passport');
 var cors = require('cors');
 
@@ -29,6 +30,7 @@ require('./config/passport')(passport);
 app.use('/api', index);
 app.use('/api/tickets', tickets);
 app.use('/api/pro_version', pro);
+app.use('/api/friends', friends);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
