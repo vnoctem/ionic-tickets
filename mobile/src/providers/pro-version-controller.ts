@@ -3,6 +3,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AppSettings } from './app-settings';
+import { SharedService } from './shared-service';
 import { AuthController } from './auth-controller';
 
 /*
@@ -16,7 +17,7 @@ export class ProVersionController {
 
   private paymentApiUrl: string = this.appSettings.getPaymentApiUrl();
 
-  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController) {
+  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public sharedService: SharedService) {
   }
 
   public buyProVersion() {
@@ -35,6 +36,8 @@ export class ProVersionController {
     .toPromise()
     .then((res: any) => {
       if (res.success) {
+        // notify all subscribers
+        this.sharedService.notifyProSubscribers();
         return Promise.resolve();
       } else {
         throw '';

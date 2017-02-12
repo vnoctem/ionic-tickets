@@ -13,6 +13,8 @@ export class SharedService {
 
   // once the user is authenticated
   private authSubject = new Subject<any>();
+  // once the user bought the pro version
+  private proSubject = new Subject<any>();
 
   public getAuthSubject() : Observable<any> {
     return this.authSubject.asObservable();
@@ -20,6 +22,14 @@ export class SharedService {
 
   public notifyAuthSubscribers() {
     this.authSubject.next();
+  }
+
+  public getProSubject() : Observable<any> {
+    return this.proSubject.asObservable();
+  }
+
+  public notifyProSubscribers() {
+    this.proSubject.next();
   }
 
 }

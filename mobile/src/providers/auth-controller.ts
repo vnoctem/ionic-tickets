@@ -35,6 +35,7 @@ export class AuthController {
       .toPromise()
       .then((res: any) => {
         this.currentUser = res.user;
+        this.currentUser.proVersion = false;
         this.token = res.token;
         // Save token and user locally
         localStorage.setItem(KEYS.token, this.token);
