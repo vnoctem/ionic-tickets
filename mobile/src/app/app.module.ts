@@ -12,6 +12,7 @@ import { Maximizable } from './../components/maximizable/maximizable';
 import { ProfileComponent } from './../components/profile/profile';
 import { AuthController } from './../providers/auth-controller';
 import { TicketController } from './../providers/ticket-controller';
+import { ProVersionController } from './../providers/pro-version-controller';
 import { AppSettings } from './../providers/app-settings';
 
 @NgModule({
@@ -44,7 +45,8 @@ import { AppSettings } from './../providers/app-settings';
     {provide: ErrorHandler, useClass: IonicErrorHandler}, 
     AuthController, 
     TicketController,
-    AppSettings
+    AppSettings,
+    ProVersionController
   ]
 })
 export class AppModule {}
