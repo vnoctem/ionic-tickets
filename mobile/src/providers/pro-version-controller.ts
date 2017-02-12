@@ -21,7 +21,7 @@ export class ProVersionController {
   }
 
   public buyProVersion() {
-    this.authCtrl.getCurrentUser().proVersion = true;
+    this.authCtrl.updateProVersion();
   }
 
   public postBuy(cardInfo: any, token: string) {

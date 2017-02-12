@@ -29,6 +29,12 @@ export class AuthController {
     this.token = localStorage.getItem(KEYS.token);
   }
 
+  public updateProVersion() {
+    this.currentUser.proVersion = true;
+    // update in local storage
+    localStorage.setItem(KEYS.user, JSON.stringify(this.currentUser));
+  }
+
   public postLogin(data: any) {
     return this.http.post(this.socialApiUrl + '/login', data)
       .map(res => res.json())

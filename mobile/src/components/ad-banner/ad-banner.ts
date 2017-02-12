@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthController } from './../../providers/auth-controller'
 
 /*
   Generated class for the AdBanner component.
@@ -12,7 +13,10 @@ import { Component } from '@angular/core';
 })
 export class AdBannerComponent {
 
-  constructor() {
+  private isProVersion: boolean = false;
+
+  constructor(public authCtrl: AuthController) {
+    this.isProVersion = authCtrl.getCurrentUser().proVersion;
   }
 
 }

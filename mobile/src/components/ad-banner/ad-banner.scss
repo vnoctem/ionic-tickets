@@ -1,7 +1,7 @@
 $ad-banner-height: 80px;
 
 ad-banner {
-    height: $ad-banner-height;
+    max-height: $ad-banner-height;
     padding: 0px;
     display: block;
 
