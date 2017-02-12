@@ -1,6 +1,7 @@
 var passport = require('passport');
 var router = require('express').Router();
 var userFriends = require('../models/friends');
+var friendShows = require('../models/shows');
 var _ = require('lodash');
 
 router.get('/:userId', passport.authenticate('jwt', { session: false }), function (req, res) {
@@ -12,6 +13,21 @@ router.get('/:userId', passport.authenticate('jwt', { session: false }), functio
                 return friend;
             });
             res.json({ 'success': true, 'friends': friends });
+            return;
+        }
+    }
+    res.json({ 'success': false });
+});
+
+router.get('/:friendId/shows', passport.authenticate('jwt', { session: false }), function (req, res) {
+    for (let i = 0; i < friendShows.length; i++) {
+        if (friendShows[i].friendId == req.params.friendId) {
+            let shows = _.cloneDeep(friendShows[i].shows);
+            _.map(shows, (show) => {
+                show.photo = 'http://' + req.headers.host + show.photo;
+                return show;
+            });
+            res.json({ 'success': true, 'shows': shows });
             return;
         }
     }

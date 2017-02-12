@@ -2,21 +2,21 @@ module.exports = [{
     'userId': 1,
     'friends': [
         {
-            'id': 954156,
+            'id': 2,
             'fullname': 'Ben Smith',
             'email': 'ben.smith@gmail.com',
             'address': 'Québec, QC',
             'photo': 'ben.png'
         },
         {
-            'id': 354489,
+            'id': 3,
             'fullname': 'Max Anderson',
             'email': 'max.anderson@gmail.com',
             'address': 'Montréal, QC',
             'photo': 'max.png'
         },
         {
-            'id': 954862,
+            'id': 4,
             'fullname': 'Mike Watson',
             'email': 'mike.watson@gmail.com',
             'address': 'Laval, QC',
