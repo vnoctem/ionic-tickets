@@ -20,6 +20,8 @@ export class TicketsPage {
   private tickets: Array<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ticketCtrl: TicketController, public authCtrl: AuthController) {
+    this.isLocal = this.authCtrl.isLocal();
+
     ticketCtrl.getTickets(
       authCtrl.getCurrentUser().id,
       authCtrl.getToken()

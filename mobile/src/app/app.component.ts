@@ -8,22 +8,12 @@ import { StatusBar, Splashscreen } from 'ionic-native';
 import { AuthController } from './../providers/auth-controller';
 import { SharedService } from './../providers/shared-service';
 import { Subscription } from 'rxjs/Subscription';
-import { Pipe, PipeTransform } from '@angular/core';
 
 export class MenuItem {
   title: string 
   component: any 
   icon: string 
-  separator: boolean 
-  visible: boolean
-}
-
-// impure so that Angular doesn't ignore changes within objects
-@Pipe({ name: 'visibleItems', pure: false })
-export class VisibleItemsPipe implements PipeTransform {
-  transform(items: MenuItem[]) {
-    return items.filter(item => item.visible);
-  }
+  separator: boolean
 }
 
 @Component({
@@ -45,9 +35,9 @@ export class MyApp implements OnDestroy {
 
     // initializae the menu
     this.pages = [
-      { title: 'Billets', component: TicketsPage, icon: 'paper', separator: false, visible: true },
-      { title: 'Amis', component: FriendsPage, icon: 'person', separator: false, visible: true },
-      { title: 'Version Pro', component: ProVersionPage, icon: 'cash', separator: true, visible: true }
+      { title: 'Billets', component: TicketsPage, icon: 'paper', separator: false },
+      { title: 'Amis', component: FriendsPage, icon: 'person', separator: false },
+      { title: 'Version Pro', component: ProVersionPage, icon: 'cash', separator: true }
     ];
   }
 
@@ -62,16 +52,25 @@ export class MyApp implements OnDestroy {
       // and other configurations
       if (this.authCtrl.hasBeenAuthenticated()) {
         this.rootPage = TicketsPage;
-        this.updateProfile(this.authCtrl.getCurrentUser());
-        this.pages[2].visible = this.authCtrl.getCurrentUser().proVersion;
+
+        if (this.authCtrl.isLocal()) {
+          // remove all menu links
+          this.pages.length = 0;
+        } else {
+          this.updateProfile(this.authCtrl.getCurrentUser());
+          if (this.authCtrl.getCurrentUser().proVersion) {
+            // remove pro version since it's already a pro version
+            this.pages.pop();
+          }
+        }
       } else {
         this.rootPage = AuthenticationPage;
         this.AuthSubscription = this.sharedService.getAuthSubject()
           .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
         this.ProSubscription = this.sharedService.getProSubject()
         .subscribe(() => {
-          // update in menu since it's not enough only setting the variable
-          this.pages[2].visible = false;
+          // update menu links
+          this.pages.pop();
         });
       }
     });

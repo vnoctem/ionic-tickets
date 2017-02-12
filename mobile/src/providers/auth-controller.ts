@@ -22,11 +22,20 @@ export class AuthController {
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
   private currentUser: any;
   private token: string;
+  private local: boolean = false;
 
   constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService) {
     // look for token and user in local storage first
     this.currentUser = JSON.parse(localStorage.getItem(KEYS.user));
     this.token = localStorage.getItem(KEYS.token);
+
+    // NOTE: work only in browser, need to use (cordova plugin add cordova-plugin-network-information)
+    // in real device
+    this.local = !navigator.onLine;
+  }
+
+  public isLocal() {
+    return this.local;
   }
 
   public updateProVersion() {

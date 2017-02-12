@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AuthController } from './../../providers/auth-controller'
 
 /*
   Generated class for the QrCode page.
@@ -16,7 +17,8 @@ export class QrCodePage {
   private isLocal: boolean = false;
   private ticket: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController) {
+    this.isLocal = this.authCtrl.isLocal();
     this.ticket = navParams.get('ticket');
   }
 

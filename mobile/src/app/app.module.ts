@@ -7,7 +7,7 @@ import { AuthenticationPage } from './../pages/authentication/authentication';
 import { AdBannerComponent } from './../components/ad-banner/ad-banner'
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp, VisibleItemsPipe } from './app.component';
+import { MyApp } from './app.component';
 import { Maximizable } from './../components/maximizable/maximizable';
 import { Separator } from './../components/separator/separator';
 import { AuthController } from './../providers/auth-controller';
@@ -27,7 +27,6 @@ import { AppSettings } from './../providers/app-settings';
     ProVersionPage,
     AdBannerComponent,
     Maximizable,
-    VisibleItemsPipe,
     Separator
   ],
   imports: [
