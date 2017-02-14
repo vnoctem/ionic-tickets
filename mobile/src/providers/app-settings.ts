@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 
 const CONFIG = {
   socialApiUrl: 'http://127.0.0.1:3000/api',
-  paymentApiUrl: 'http://127.0.0.1:3000/api'
+  paymentApiUrl: 'http://127.0.0.1:3000/api',
+  adApiUrl: 'http://127.0.0.1:3000/api'
 }
 
 /*
@@ -20,6 +21,10 @@ export class AppSettings {
 
   public getPaymentApiUrl() {
     return CONFIG.paymentApiUrl;
+  }
+
+  public getAdApiUrl() {
+    return CONFIG.adApiUrl;
   }
 
 }
