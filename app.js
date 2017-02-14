@@ -8,6 +8,7 @@ var index = require('./routes/index');
 var tickets = require('./routes/tickets');
 var pro = require('./routes/proVersion');
 var friends = require('./routes/friends');
+var adBanner = require('./routes/adBanner');
 var passport = require('passport');
 var cors = require('cors');
 
@@ -31,6 +32,7 @@ app.use('/api', index);
 app.use('/api/tickets', tickets);
 app.use('/api/pro_version', pro);
 app.use('/api/friends', friends);
+app.use('/api/ad_banner', adBanner);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
