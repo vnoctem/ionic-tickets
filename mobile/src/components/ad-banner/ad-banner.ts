@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthController } from './../../providers/auth-controller'
+import { AdBannerController } from './../../providers/ad-banner-controller'
 
 /*
   Generated class for the AdBanner component.
@@ -13,10 +14,16 @@ import { AuthController } from './../../providers/auth-controller'
 })
 export class AdBannerComponent {
 
+  private src: String;
   private isProVersion: boolean = false;
 
-  constructor(public authCtrl: AuthController) {
+  constructor(public authCtrl: AuthController, public adCtrl: AdBannerController) {
     this.isProVersion = authCtrl.getCurrentUser().proVersion;
+
+    adCtrl.getAdBanner(authCtrl.getToken())
+    .then((res) => {
+      this.src = res;
+    });
   }
 
 }

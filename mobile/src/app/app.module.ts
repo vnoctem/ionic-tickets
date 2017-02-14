@@ -15,6 +15,7 @@ import { TicketController } from './../providers/ticket-controller';
 import { ProVersionController } from './../providers/pro-version-controller';
 import { SharedService } from './../providers/shared-service';
 import { AppSettings } from './../providers/app-settings';
+import { AdBannerController } from './../providers/ad-banner-controller';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AppSettings } from './../providers/app-settings';
     TicketController,
     AppSettings,
     ProVersionController,
-    SharedService
+    SharedService,
+    AdBannerController
   ]
 })
 export class AppModule {}
