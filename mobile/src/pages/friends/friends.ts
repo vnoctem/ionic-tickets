@@ -1,7 +1,7 @@
 import { ShowsPage } from './../shows/shows';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {FriendController} from './../../providers/friend-controller';
+import { FriendController } from './../../providers/friend-controller';
 import { AuthController } from './../../providers/auth-controller'
 import { TicketController } from './../../providers/ticket-controller'
 

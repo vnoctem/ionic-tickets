@@ -24,9 +24,9 @@ export class FriendController {
     let headers = new Headers();
     headers.append('Authorization', token);
     return this.http.get(
-        `${this.socialApiUrl}/friends/${userId}`,
-        new RequestOptions({ 'headers': headers })
-      )
+      `${this.socialApiUrl}/friends/${userId}`,
+      new RequestOptions({ 'headers': headers })
+    )
       .map(res => res.json())
       .toPromise()
       .then((res: any) => {
