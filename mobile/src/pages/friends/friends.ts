@@ -7,8 +7,6 @@ import { TicketController } from './../../providers/ticket-controller'
 
 /*
   Generated class for the Friends page.
-
-
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 */
@@ -34,7 +32,7 @@ export class FriendsPage {
   }
 
   goToShows(friend) {
-    this.navCtrl.push(ShowsPage, { 'friend': FriendsPage });
+    this.navCtrl.push(ShowsPage, { 'friend': friend.id });
   }
 
 }
