@@ -15,7 +15,7 @@ import { TicketController } from './../../providers/ticket-controller'
 @Component({
   selector: 'page-friends',
   templateUrl: 'friends.html',
-  providers: [FriendController]
+  
 })
 export class FriendsPage {
 
