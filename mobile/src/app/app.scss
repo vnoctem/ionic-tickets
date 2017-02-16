@@ -15,6 +15,15 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+* {
+    font-size: 0.9em;
+}
+
+.item-md h1 {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .profile {
     padding: 60px;
     background-color: $sidemenu-background;
@@ -98,4 +107,14 @@ button[ion-item] ion-icon {
 
 .item-md p {
     white-space: normal;
+}
+
+ion-item.full-border-bottom {
+    &.item.item-block.item-md {
+        border-bottom: 1px solid #dedede;
+
+        .item-inner {
+            border: 0px;
+        }
+    }
 }

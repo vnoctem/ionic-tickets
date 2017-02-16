@@ -1,3 +1,3 @@
 module.exports = {
-    'src': '/images/ad_banner.jpg'
+    'src': '/images/ad_banner.png'
 };
