@@ -12,7 +12,7 @@ import { Maximizable } from './../components/maximizable/maximizable';
 import { Separator } from './../components/separator/separator';
 import { AuthController } from './../providers/auth-controller';
 import { TicketController } from './../providers/ticket-controller';
-import { FriendController } from './../../providers/friend-controller';
+import { FriendController } from './../providers/friend-controller';
 import { ProVersionController } from './../providers/pro-version-controller';
 import { SharedService } from './../providers/shared-service';
 import { AppSettings } from './../providers/app-settings';

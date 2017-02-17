@@ -1,5 +1,6 @@
 <!--
   Generated template for the Friends page.
+
   See http://ionicframework.com/docs/v2/components/#navigation for more info on
   Ionic pages and navigation.
 -->
@@ -14,7 +15,6 @@
 
 <ion-content fullscreen="true">
   <ion-list>
-
     <ion-item *ngFor="let f of friends" (click)="goToShows(f)">
       <ion-avatar item-left maximizable>
         <img src="{{f.photo}}">
@@ -23,9 +23,6 @@
       <p>{{f.email}}</p>
       <p>{{f.address}}</p>
     </ion-item>
-
-
-
   </ion-list>
 </ion-content>
 
