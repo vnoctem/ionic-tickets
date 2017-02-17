@@ -11,11 +11,11 @@ router.get('/:userId', passport.authenticate('jwt', { session: false }), functio
                 ticket.poster = 'http://' + req.headers.host + ticket.poster;
                 return ticket;
             });
-            res.json({ 'success': true, 'tickets': tickets });
+            res.json({ 'tickets': tickets });
             return;
         }
     }
-    res.json({ 'success': false });
+    res.json({});
 });
 
 module.exports = router;

@@ -48,25 +48,25 @@ export class ProVersionPage {
       'duration': 3000,
       'position': 'bottom'
     })
-    .present();
+      .present();
   }
 
   // carry out payment to buy the version without ad
   public confirmPayment() {
     let cardInfo = {
-      'cardName' : this.cardName,
-      'cardNumber' : this.cardNumber,
+      'cardName': this.cardName,
+      'cardNumber': this.cardNumber,
       'expirationYear': this.expirationYear,
       'expirationMonth': this.expirationMonth
     };
     this.proCtrl.postBuy(cardInfo, this.authCtrl.getToken())
-    .then((res: any) => {
-      this.showToast('L\'achat a été effectué avec succès');
-      this.proCtrl.buyProVersion();
-      this.navCtrl.setRoot(TicketsPage);
-    }).catch((err: any) => {
-      this.showToast('L\'achat a échoué');
-    });
+      .then(res => {
+        this.showToast('L\'achat a été effectué avec succès');
+        this.proCtrl.buyProVersion();
+        this.navCtrl.setRoot(TicketsPage);
+      }).catch(err => {
+        this.showToast('L\'achat a échoué');
+      });
   }
 
 }

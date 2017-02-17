@@ -19,7 +19,9 @@ page-pro-version {
        margin-top: 20px;
 
        & > .label {
-           margin-top: 11px;
+           margin: 0px;
+           padding-top: 8px;
+           padding-bottom: 8px;
        }
 
        ion-select {

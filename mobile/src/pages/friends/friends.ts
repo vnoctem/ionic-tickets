@@ -23,8 +23,8 @@ export class FriendsPage {
     friendCtrl.getFriends(
       authCtrl.getCurrentUser().id,
       authCtrl.getToken()
-    ).then((res) => {
-      this.friends = res;
+    ).then(friends => {
+      this.friends = friends;
     });
   }
 

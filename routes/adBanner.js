@@ -3,8 +3,7 @@ var router = require('express').Router();
 var adBanner = require('../models/adBanner');
 
 router.get('/', passport.authenticate('jwt', { session: false }), function (req, res) {
-    res.json({ 
-        'success': true, 
+    res.json({
         'adBanner': {
             'src': 'http://' + req.headers.host + adBanner.src
         } 

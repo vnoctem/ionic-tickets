@@ -32,17 +32,13 @@ export class ProVersionController {
       cardInfo,
       new RequestOptions({ 'headers': headers })
     )
-    .map(res => res.json())
-    .toPromise()
-    .then((res: any) => {
-      if (res.success) {
+      .map(res => res.json())
+      .toPromise()
+      .then(res => {
         // notify all subscribers
         this.sharedService.notifyProSubscribers();
         return Promise.resolve();
-      } else {
-        throw '';
-      }
-    });
+      });
   }
 
 }

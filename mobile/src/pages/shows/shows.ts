@@ -24,7 +24,9 @@ export class ShowsPage {
     showCtrl.getShows(
       this.friend.id,
       authCtrl.getToken()
-    ).then(res => this.shows = res);
+    ).then(shows => { 
+      this.shows = shows 
+    });
   }
 
 }

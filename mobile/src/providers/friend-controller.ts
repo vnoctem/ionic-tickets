@@ -28,9 +28,7 @@ export class FriendController {
     )
       .map(res => res.json())
       .toPromise()
-      .then(res => {
-        return res.friends;
-      });
+      .then(res => res.friends);
   }
 
 }

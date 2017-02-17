@@ -8,6 +8,12 @@ var admin = require('../models/admin');
 var secret = require('../config/secret');
 
 router.post('/login', function (req, res, next) {
+    if (!req.body.password) {
+        // Bad request
+        res.status(400).json({ 'message': 'Le mot de passe est invalide' });
+        return;
+    }
+
     // Compare password with bcrypt
     bcrypt.compare(req.body.password, admin.password).then(function (success) {
         if (success) {
@@ -17,18 +23,17 @@ router.post('/login', function (req, res, next) {
             // Create token
             var token = jwt.encode(ret, secret.key);
             // Send back the token
-            res.json({ 
-                'success': true, 
-                'token': `JWT ${token}` ,
+            res.json({
                 'user': {
                     'id': admin.id,
                     'username': admin.username,
                     'fullname': admin.fullname,
-                    'photo': 'http://' + req.headers.host + admin.photo
+                    'photo': 'http://' + req.headers.host + admin.photo,
+                    'token': `JWT ${token}`
                 }
             });
         } else {
-            res.json({ 'success': false });
+            res.status(400).json({ 'message': 'Le mot de passe est incorrect' });;
         }
     });
 });

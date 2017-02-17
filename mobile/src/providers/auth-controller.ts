@@ -6,8 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 const KEYS = {
-  user: 'billets-user',
-  token: 'billets-token'
+  user: 'billets-user'
 }
 
 /*
@@ -21,13 +20,11 @@ export class AuthController {
 
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
   private currentUser: any;
-  private token: string;
   private local: boolean = false;
 
   constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService) {
     // look for token and user in local storage first
     this.currentUser = JSON.parse(localStorage.getItem(KEYS.user));
-    this.token = localStorage.getItem(KEYS.token);
 
     // NOTE: work only in browser, need to use (cordova plugin add cordova-plugin-network-information)
     // in real device
@@ -40,7 +37,7 @@ export class AuthController {
 
   public updateProVersion() {
     this.currentUser.proVersion = true;
-    // update in local storage
+    // Update in local storage
     localStorage.setItem(KEYS.user, JSON.stringify(this.currentUser));
   }
 
@@ -48,16 +45,19 @@ export class AuthController {
     return this.http.post(this.socialApiUrl + '/login', data)
       .map(res => res.json())
       .toPromise()
-      .then((res: any) => {
+      .then(res => {
         this.currentUser = res.user;
         this.currentUser.proVersion = false;
-        this.token = res.token;
         // Save token and user locally
-        localStorage.setItem(KEYS.token, this.token);
         localStorage.setItem(KEYS.user, JSON.stringify(this.currentUser));
-        // notify all subscribers
+        // Notify all subscribers
         this.sharedService.notifyAuthSubscribers();
         return this.currentUser;
+      })
+      .catch(err => {
+        // Only return the error so that the client can handle it
+        err._body = JSON.parse(err._body);
+        return Promise.reject(err);
       });
   }
 
@@ -66,11 +66,11 @@ export class AuthController {
   }
 
   public getToken() {
-    return this.token;
+    return this.currentUser.token;
   }
 
   public hasBeenAuthenticated() {
-    return this.currentUser && this.token;
+    return this.currentUser;
   }
 
 }
