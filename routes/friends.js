@@ -24,7 +24,7 @@ router.get('/:friendId/shows', passport.authenticate('jwt', { session: false }),
         if (friendShows[i].friendId == req.params.friendId) {
             let shows = _.cloneDeep(friendShows[i].shows);
             _.map(shows, (show) => {
-                show.photo = 'http://' + req.headers.host + show.photo;
+                show.poster = 'http://' + req.headers.host + show.poster;
                 return show;
             });
             res.json({ 'success': true, 'shows': shows });

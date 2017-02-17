@@ -17,6 +17,7 @@ import { ProVersionController } from './../providers/pro-version-controller';
 import { SharedService } from './../providers/shared-service';
 import { AppSettings } from './../providers/app-settings';
 import { AdBannerController } from './../providers/ad-banner-controller';
+import { ShowController } from './../providers/show-controller';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { AdBannerController } from './../providers/ad-banner-controller';
     ProVersionController,
     SharedService,
     AdBannerController,
-    FriendController
+    FriendController,
+    ShowController
   ]
 })
 export class AppModule {}

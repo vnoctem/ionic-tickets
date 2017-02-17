@@ -6,41 +6,21 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Spectacles à venir de Ben Smith</ion-title>
+    <ion-title>Spectacles - {{friend.fullname}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content fullscreen="true">
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor="let s of shows">
       <ion-avatar item-left maximizable>
-        <img src="assets/img/shows/oliver-heldens.jpg">
+        <img src="{{s.poster}}">
       </ion-avatar>
-      <h1>Oliver Heldens</h1>
-      <h2>Oliver Heldens</h2>
-      <p>2017-02-18 22h00</p>
-      <p>New City Gas</p>
-      <p>950 Rue Ottawa, Montréal, QC H3C 1S4<p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left maximizable>
-        <img src="assets/img/shows/opera.jpg">
-      </ion-avatar>
-      <h1>Dialogues des Carmélites</h1>
-      <h2>Opéra de Montréal</h2>
-      <p>2017-03-17 16h00</p>
-      <p>Centre Bell</p>
-      <p>1909 Avenue des Canadiens-de-Montréal, Montréal, QC H4B 5G0</p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left maximizable>
-        <img src="assets/img/shows/volta.jpg">
-      </ion-avatar>
-      <h1>Volta</h1>
-      <h2>Cirque du Soleil</h2>
-      <p>2017-05-14 20h00</p>
-      <p>Grand Chapiteau</p>
-      <p>Quai Jacques-Cartier, rue de la Commune Est, Montréal, QC H2Y 1J1</p>
+      <h2>{{s.showName}}</h2>
+      <h2>{{s.artistName}}</h2>
+      <p>{{s.datetime}}</p>
+      <p>{{s.location}}</p>
+      <p>{{s.address}}<p>
     </ion-item>
   </ion-list>
 </ion-content>
