@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { AppSettings } from './app-settings';
 import { AuthController } from './auth-controller';
+import { StorageService } from './storage-service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -20,7 +21,7 @@ export class TicketController {
 
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
 
-  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController) {
+  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public storService: StorageService) {
   }
 
   public getTickets(userId: number, token: string) {
@@ -43,7 +44,7 @@ export class TicketController {
         for (let i = 0; i < cloned.length; i++) {
           cloned[i].poster = '';
         }
-        localStorage.setItem(KEYS.tickets, JSON.stringify(cloned));
+        this.storService.saveObject(KEYS.tickets, cloned);
         return res.tickets;
       });
   }

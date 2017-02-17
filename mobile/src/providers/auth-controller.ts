@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { AppSettings } from './app-settings';
 import { SharedService } from './shared-service';
+import { StorageService } from './storage-service';
+import { InternetService } from './internet-service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -22,13 +24,11 @@ export class AuthController {
   private currentUser: any;
   private local: boolean = false;
 
-  constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService) {
+  constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService, public storService: StorageService, public interService: InternetService) {
     // look for token and user in local storage first
-    this.currentUser = JSON.parse(localStorage.getItem(KEYS.user));
+    this.currentUser = storService.loadObject(KEYS.user);
 
-    // NOTE: work only in browser, need to use (cordova plugin add cordova-plugin-network-information)
-    // in real device
-    this.local = !navigator.onLine;
+    this.local = !interService.hasInternetAccess();
   }
 
   public isLocal() {
@@ -38,7 +38,7 @@ export class AuthController {
   public updateProVersion() {
     this.currentUser.proVersion = true;
     // Update in local storage
-    localStorage.setItem(KEYS.user, JSON.stringify(this.currentUser));
+    this.storService.saveObject(KEYS.user, this.currentUser);
   }
 
   public postLogin(data: any) {
@@ -49,7 +49,7 @@ export class AuthController {
         this.currentUser = res.user;
         this.currentUser.proVersion = false;
         // Save token and user locally
-        localStorage.setItem(KEYS.user, JSON.stringify(this.currentUser));
+        this.storService.saveObject(KEYS.user, this.currentUser);
         // Notify all subscribers
         this.sharedService.notifyAuthSubscribers();
         return this.currentUser;

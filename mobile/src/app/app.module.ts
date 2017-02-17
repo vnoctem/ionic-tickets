@@ -18,6 +18,8 @@ import { SharedService } from './../providers/shared-service';
 import { AppSettings } from './../providers/app-settings';
 import { AdBannerController } from './../providers/ad-banner-controller';
 import { ShowController } from './../providers/show-controller';
+import { StorageService } from './../providers/storage-service';
+import { InternetService } from './../providers/internet-service';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { ShowController } from './../providers/show-controller';
     SharedService,
     AdBannerController,
     FriendController,
-    ShowController
+    ShowController,
+    InternetService,
+    StorageService
   ]
 })
 export class AppModule {}
