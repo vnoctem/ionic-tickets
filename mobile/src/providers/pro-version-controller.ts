@@ -35,13 +35,9 @@ export class ProVersionController {
       .map(res => res.json())
       .toPromise()
       .then(res => {
-        if (res.success) {
-          // notify all subscribers
-          this.sharedService.notifyProSubscribers();
-          return Promise.resolve();
-        } else {
-          throw '';
-        }
+        // notify all subscribers
+        this.sharedService.notifyProSubscribers();
+        return Promise.resolve();
       });
   }
 

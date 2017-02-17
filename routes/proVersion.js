@@ -5,11 +5,11 @@ router.post('/buy', passport.authenticate('jwt', { session: false }), function (
     // simple validation
     // just make sure that all fields we need are present
     if (req.body.cardName && req.body.cardNumber && req.body.expirationYear && req.body.expirationMonth) {
-        res.json({ 'success': true });
+        res.json({});
         return;
     }
 
-    res.json({ 'success': false });
+    res.status(400).json({});
 });
 
 module.exports = router;
