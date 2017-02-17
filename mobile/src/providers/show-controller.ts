@@ -27,10 +27,7 @@ export class ShowController {
     )
       .map(res => res.json())
       .toPromise()
-      .then(res => {
-        console.log(`${this.socialApiUrl}/friends/${friendId}/shows`);
-        return res.shows;
-      });
+      .then(res => res.shows);
   }
 
 }

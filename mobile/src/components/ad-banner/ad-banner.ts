@@ -21,8 +21,8 @@ export class AdBannerComponent {
     this.isProVersion = authCtrl.getCurrentUser().proVersion;
 
     adCtrl.getAdBanner(authCtrl.getToken())
-      .then(res => {
-        this.src = res;
+      .then(src => {
+        this.src = src;
       });
   }
 

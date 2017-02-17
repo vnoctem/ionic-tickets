@@ -12,11 +12,11 @@ router.get('/:userId', passport.authenticate('jwt', { session: false }), functio
                 friend.photo = 'http://' + req.headers.host + friend.photo;
                 return friend;
             });
-            res.json({ 'success': true, 'friends': friends });
+            res.json({ 'friends': friends });
             return;
         }
     }
-    res.json({ 'success': false });
+    res.json({});
 });
 
 router.get('/:friendId/shows', passport.authenticate('jwt', { session: false }), function (req, res) {
@@ -27,11 +27,11 @@ router.get('/:friendId/shows', passport.authenticate('jwt', { session: false }),
                 show.poster = 'http://' + req.headers.host + show.poster;
                 return show;
             });
-            res.json({ 'success': true, 'shows': shows });
+            res.json({ 'shows': shows });
             return;
         }
     }
-    res.json({ 'success': false });
+    res.json({});
 });
 
 module.exports = router;

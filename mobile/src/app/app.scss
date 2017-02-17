@@ -19,9 +19,15 @@
     color: red;
 }
 
-.item-md h1 {
-    text-overflow: ellipsis;
-    overflow: hidden;
+.item-md {
+    h1 {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    p {
+        color: #959595;
+    }
 }
 
 .profile {

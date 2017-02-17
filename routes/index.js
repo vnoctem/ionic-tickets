@@ -24,11 +24,13 @@ router.post('/login', function (req, res, next) {
             var token = jwt.encode(ret, secret.key);
             // Send back the token
             res.json({
-                'id': admin.id,
-                'username': admin.username,
-                'fullname': admin.fullname,
-                'photo': 'http://' + req.headers.host + admin.photo,
-                'token': `JWT ${token}`
+                'user': {
+                    'id': admin.id,
+                    'username': admin.username,
+                    'fullname': admin.fullname,
+                    'photo': 'http://' + req.headers.host + admin.photo,
+                    'token': `JWT ${token}`
+                }
             });
         } else {
             res.status(400).json({ 'message': 'Le mot de passe est incorrect' });;
