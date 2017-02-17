@@ -9,7 +9,7 @@ module.exports = [
                 'datetime': '2017-02-18 22h00',
                 'location': 'New City Gas',
                 'address': '950 Rue Ottawa, Montréal, QC H3C 1S4',
-                'poster': 'oliver-heldens.jpg'
+                'poster': '/images/shows/oliver-heldens.jpg'
             },
             {
                 'id': 987514,
@@ -18,7 +18,7 @@ module.exports = [
                 'datetime': '2017-03-17 16h00',
                 'location': 'Centre Bell',
                 'address': '1909 Avenue des Canadiens-de-Montréal, Montréal, QC H4B 5G0',
-                'poster': 'opera.jpg'
+                'poster': '/images/shows/opera.jpg'
             }
         ]
     },
@@ -32,7 +32,7 @@ module.exports = [
                 'datetime': '2017-05-14 20h00',
                 'location': 'Grand Chapiteau',
                 'address': 'Quai Jacques-Cartier, rue de la Commune Est, Montréal, QC H2Y 1J1',
-                'poster': 'volta.jpg'
+                'poster': '/images/shows/volta.jpg'
             }
         ]
     },

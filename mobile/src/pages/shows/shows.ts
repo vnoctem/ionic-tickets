@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ShowController } from './../../providers/show-controller';
+import { AuthController } from './../../providers/auth-controller'
 
 /*
   Generated class for the Shows page.
@@ -13,6 +15,16 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class ShowsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  private shows: Array<any>;
+  private friend: any;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public showCtrl: ShowController, public authCtrl: AuthController) {
+    this.friend = navParams.get('friend');
+
+    showCtrl.getShows(
+      this.friend.id,
+      authCtrl.getToken()
+    ).then(res => this.shows = res);
+  }
 
 }
