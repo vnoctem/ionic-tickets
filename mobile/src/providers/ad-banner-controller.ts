@@ -27,7 +27,7 @@ export class AdBannerController {
       )
       .map(res => res.json())
       .toPromise()
-      .then((res: any) => {
+      .then(res => {
         return res.adBanner.src;
       });
   }

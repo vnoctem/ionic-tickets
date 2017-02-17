@@ -25,7 +25,7 @@ export class TicketsPage {
     ticketCtrl.getTickets(
       authCtrl.getCurrentUser().id,
       authCtrl.getToken()
-    ).then((res) => {
+    ).then(res => {
       this.tickets = res;
     });
   }

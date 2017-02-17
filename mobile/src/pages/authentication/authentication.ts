@@ -25,10 +25,10 @@ export class AuthenticationPage {
     this.authCtrl.postLogin({
       'username': this.username,
       'password': this.password
-    }).then((currentUser) => {
+    }).then(user => {
       this.navCtrl.setRoot(TicketsPage);
-    }).catch((err) => {
-      this.error = err;
+    }).catch(err => {
+      this.error = err._body.message;
     });
   }
 

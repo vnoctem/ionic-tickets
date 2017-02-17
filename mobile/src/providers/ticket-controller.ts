@@ -32,12 +32,12 @@ export class TicketController {
     let headers = new Headers();
     headers.append('Authorization', token);
     return this.http.get(
-        `${this.socialApiUrl}/tickets/${userId}`,
-        new RequestOptions({ 'headers': headers })
-      )
+      `${this.socialApiUrl}/tickets/${userId}`,
+      new RequestOptions({ 'headers': headers })
+    )
       .map(res => res.json())
       .toPromise()
-      .then((res: any) => {
+      .then(res => {
         let cloned = JSON.parse(JSON.stringify(res.tickets));
         // remove photo url in local storage
         for (let i = 0; i < cloned.length; i++) {
