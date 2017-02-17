@@ -15,29 +15,13 @@
 
 <ion-content fullscreen="true">
   <ion-list>
-    <ion-item (click)="goToShows()">
-      <ion-avatar item-left>
-        <img src="assets/img/friends/ben.png">
+    <ion-item *ngFor="let f of friends" (click)="goToShows(f)">
+      <ion-avatar item-left maximizable>
+        <img src="{{f.photo}}">
       </ion-avatar>
-      <h1>Ben Smith</h1>
-      <p>ben.smith@gmail.com</p>
-      <p>Québec, QC</p>
-    </ion-item>
-    <ion-item (click)="goToShows()">
-      <ion-avatar item-left>
-        <img src="assets/img/friends/max.png">
-      </ion-avatar>
-      <h1>Max Anderson</h1>
-      <p>max.anderson@gmail.com</p>
-      <p>Montréal, QC</p>
-    </ion-item>
-    <ion-item (click)="goToShows()">
-      <ion-avatar item-left>
-        <img src="assets/img/friends/mike.png">
-      </ion-avatar>
-      <h1>Mike Watson</h1>
-      <p>mike.watson@gmail.com</p>
-      <p>Laval, QC</p>
+      <h1>{{f.fullname}}</h1>
+      <p>{{f.email}}</p>
+      <p>{{f.address}}</p>
     </ion-item>
   </ion-list>
 </ion-content>
