@@ -22,6 +22,6 @@ module.exports = [{
             'address': 'Quai Jacques-Cartier, rue de la Commune Est, Montréal, QC H2Y 1J1',
             'poster': '/images/shows/luzia.jpg',
             'GUID': '25121906-74f7-4ec5-9016-9d06e10d72cc'
-        },
+        }
     ]
 }];
