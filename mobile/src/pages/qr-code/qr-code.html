@@ -13,7 +13,7 @@
 <ion-content padding fullscreen="true">
   <!--<ion-label stacked>Propriétaire</ion-label>-->
   <!--<ion-label class="label-ticket-owner">Ben Smith</ion-label>-->
-  <img class="qr-code" src="assets/img/qr-code/qrcode.jpg">
+  <qr-code [value]="ticket.GUID" [size]="250"></qr-code>
 </ion-content>
 
 <ion-footer>

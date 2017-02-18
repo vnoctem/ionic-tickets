@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AuthController } from './../../providers/auth-controller'
+import { AuthController } from './../../providers/auth-controller';
 
 /*
   Generated class for the QrCode page.

@@ -20,6 +20,7 @@ import { AdBannerController } from './../providers/ad-banner-controller';
 import { ShowController } from './../providers/show-controller';
 import { StorageService } from './../providers/storage-service';
 import { InternetService } from './../providers/internet-service';
+import { QRCodeModule } from 'angular2-qrcode';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { InternetService } from './../providers/internet-service';
     Separator
   ],
   imports: [
+    QRCodeModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -48,8 +50,8 @@ import { InternetService } from './../providers/internet-service';
     ProVersionPage
   ],
   providers: [
-    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
-    AuthController, 
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    AuthController,
     TicketController,
     AppSettings,
     ProVersionController,
