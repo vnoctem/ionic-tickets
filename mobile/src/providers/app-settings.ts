@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 const CONFIG = {
-  socialApiUrl: 'http://127.0.0.1:3000/api',
-  paymentApiUrl: 'http://127.0.0.1:3000/api',
-  adApiUrl: 'http://127.0.0.1:3000/api'
+  socialApiUrl: 'https://morning-sea-98821.herokuapp.com/api',
+  paymentApiUrl: 'https://morning-sea-98821.herokuapp.com/api',
+  adApiUrl: 'https://morning-sea-98821.herokuapp.com/api'
 }
 
 /*
