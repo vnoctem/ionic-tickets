@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Network } from 'ionic-native';
 
 /*
   Generated class for the InternetService provider.
@@ -12,7 +13,10 @@ export class InternetService {
   public hasInternetAccess() {
     // NOTE: work only in browser, need to use (cordova plugin add cordova-plugin-network-information)
     // in real device
-    return navigator.onLine;
+    // return navigator.onLine;
+
+    // Check internet connection in real device
+    return Network.type !== 'none' && Network.type !== 'unknown';
   }
 
 }
