@@ -48,30 +48,31 @@ export class MyApp implements OnDestroy {
       StatusBar.styleDefault();
       Splashscreen.hide();
 
-      // update profile in both case, but in a different way
-      // and other configurations
-      if (this.authCtrl.hasBeenAuthenticated()) {
+      if (this.authCtrl.isLocal()) { // there's no internet access
+        // show tickets from local storage
         this.rootPage = TicketsPage;
-
-        if (this.authCtrl.isLocal()) {
-          // remove all menu links
-          this.pages.length = 0;
-        } else {
+        // remove all menu links
+        this.pages.length = 0;
+      } else {
+        // update profile in both case, but in a different way
+        // and other configurations
+        if (this.authCtrl.hasBeenAuthenticated()) {
+          this.rootPage = TicketsPage;
           this.updateProfile(this.authCtrl.getCurrentUser());
           if (this.authCtrl.getCurrentUser().proVersion) {
-            // remove pro version since it's already a pro version
+            // remove pro version menu link since it's already a pro version
             this.pages.pop();
           }
+        } else {
+          this.rootPage = AuthenticationPage;
+          this.AuthSubscription = this.sharedService.getAuthSubject()
+            .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
+          this.ProSubscription = this.sharedService.getProSubject()
+          .subscribe(() => {
+            // update menu links
+            this.pages.pop();
+          });
         }
-      } else {
-        this.rootPage = AuthenticationPage;
-        this.AuthSubscription = this.sharedService.getAuthSubject()
-          .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
-        this.ProSubscription = this.sharedService.getProSubject()
-        .subscribe(() => {
-          // update menu links
-          this.pages.pop();
-        });
       }
     });
   }
