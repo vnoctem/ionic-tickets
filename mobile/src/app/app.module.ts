@@ -2,7 +2,7 @@ import { ShowsPage } from './../pages/shows/shows';
 import { ProVersionPage } from './../pages/pro-version/pro-version';
 import { FriendsPage } from './../pages/friends/friends';
 import { QrCodePage } from './../pages/qr-code/qr-code';
-import { TicketsPage } from './../pages/tickets/tickets';
+import { TicketsPage, UpcomingTicketsPipe } from './../pages/tickets/tickets';
 import { AuthenticationPage } from './../pages/authentication/authentication';
 import { AdBannerComponent } from './../components/ad-banner/ad-banner'
 import { NgModule, ErrorHandler } from '@angular/core';
@@ -33,7 +33,8 @@ import { QRCodeModule } from 'angular2-qrcode';
     ProVersionPage,
     AdBannerComponent,
     Maximizable,
-    Separator
+    Separator,
+    UpcomingTicketsPipe
   ],
   imports: [
     QRCodeModule,
