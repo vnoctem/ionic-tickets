@@ -1,7 +1,7 @@
-var passport = require('passport');
+var strategy = require('../config/strategy');
 var router = require('express').Router();
 
-router.post('/buy', passport.authenticate('jwt', { session: false }), function (req, res) {
+router.post('/buy', strategy, function (req, res) {
     // simple validation
     // just make sure that all fields we need are present
     if (req.body.cardName && req.body.cardNumber && req.body.expirationYear && req.body.expirationMonth) {

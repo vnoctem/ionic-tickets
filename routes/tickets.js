@@ -1,9 +1,9 @@
-var passport = require('passport');
+var strategy = require('../config/strategy');
 var router = require('express').Router();
 var usersTickets = require('../models/tickets');
 var _ = require('lodash');
 
-router.get('/:userId', passport.authenticate('jwt', { session: false }), function (req, res) {
+router.get('/:userId', strategy, function (req, res) {
     for (let i = 0; i < usersTickets.length; i++) {
         if (usersTickets[i].userId == req.params.userId) {
             let tickets = _.cloneDeep(usersTickets[i].tickets);
