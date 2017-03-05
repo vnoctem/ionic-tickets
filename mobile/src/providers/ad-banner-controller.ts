@@ -22,9 +22,9 @@ export class AdBannerController {
     let headers = new Headers();
     headers.append('Authorization', token);
     return this.http.get(
-        `${this.adApiUrl}/ad_banner`,
-        new RequestOptions({ 'headers': headers })
-      )
+      `${this.adApiUrl}/ad_banner`,
+      new RequestOptions({ 'headers': headers })
+    )
       .map(res => res.json())
       .toPromise()
       .then(res => res.adBanner.src);

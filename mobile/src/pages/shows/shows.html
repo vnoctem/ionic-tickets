@@ -11,6 +11,15 @@
 </ion-header>
 
 <ion-content fullscreen="true">
+  <ion-refresher (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Glisser vers le bas pour recharger"
+      refreshingSpinner="circles"
+      refreshingText="En cours de chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
+
   <ion-list>
     <ion-item *ngFor="let s of shows" class="full-border-bottom">
       <ion-avatar item-left maximizable>

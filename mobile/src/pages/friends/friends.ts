@@ -23,9 +23,21 @@ export class FriendsPage {
     friendCtrl.getFriends(
       authCtrl.getCurrentUser().id,
       authCtrl.getToken()
-    ).then(friends => {
-      this.friends = friends;
-    });
+    )
+      .then(friends => {
+        this.friends = friends;
+      });
+  }
+
+  public onRefresh(refresher) {
+    this.friendCtrl.getFriends(
+      this.authCtrl.getCurrentUser().id,
+      this.authCtrl.getToken()
+    )
+      .then(friends => {
+        this.friends = friends;
+        refresher.complete();
+      });
   }
 
   goToShows(friend) {

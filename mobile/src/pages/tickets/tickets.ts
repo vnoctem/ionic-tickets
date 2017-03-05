@@ -46,12 +46,24 @@ export class TicketsPage {
     ticketCtrl.getTickets(
       authCtrl.getCurrentUser().id,
       authCtrl.getToken()
-    ).then(tickets => {
-      this.tickets = tickets;
-    });
+    )
+      .then(tickets => {
+        this.tickets = tickets;
+      });
   }
 
-  goToQRCode(ticket) {
+  public onRefresh(refresher) {
+    this.ticketCtrl.getTickets(
+      this.authCtrl.getCurrentUser().id,
+      this.authCtrl.getToken()
+    )
+      .then(tickets => {
+        this.tickets = tickets;
+        refresher.complete();
+      });
+  }
+
+  public goToQRCode(ticket) {
     this.navCtrl.push(QrCodePage, { 'ticket': ticket });
   }
 
