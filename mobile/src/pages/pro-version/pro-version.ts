@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ProVersionController } from './../../providers/pro-version-controller'
 import { AuthController } from './../../providers/auth-controller'
 import { TicketsPage } from './../../pages/tickets/tickets';
@@ -22,8 +22,9 @@ export class ProVersionPage {
   private expirationYear: number;
   private cardNumber: number;
   private cardName: string;
+  private error: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public proCtrl: ProVersionController, public authCtrl: AuthController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public proCtrl: ProVersionController, public authCtrl: AuthController) {
     // Populate years and months
     for (let i = 1; i <= 12; i++) {
       let month = {
@@ -42,15 +43,6 @@ export class ProVersionPage {
     }
   }
 
-  public showToast(message: string) {
-    this.toastCtrl.create({
-      'message': message,
-      'duration': 3000,
-      'position': 'bottom'
-    })
-      .present();
-  }
-
   // carry out payment to buy the version without ad
   public confirmPayment() {
     let cardInfo = {
@@ -61,12 +53,12 @@ export class ProVersionPage {
     };
     this.proCtrl.postBuy(cardInfo, this.authCtrl.getToken())
       .then(res => {
-        this.showToast('L\'achat a été effectué avec succès');
+        this.error = 'L\'achat a été effectué avec succès';
         this.proCtrl.buyProVersion();
         this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
-        this.showToast('L\'achat a échoué');
+        this.error = 'L\'achat a échoué';
       });
   }
 
