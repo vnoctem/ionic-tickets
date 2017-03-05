@@ -28,6 +28,16 @@ export class FriendsPage {
     });
   }
 
+  public onRefresh(refresher) {
+    this.friendCtrl.getFriends(
+      this.authCtrl.getCurrentUser().id,
+      this.authCtrl.getToken()
+    ).then(friends => {
+      this.friends = friends;
+      refresher.complete();
+    });
+  }
+
   goToShows(friend) {
     this.navCtrl.push(ShowsPage, { 'friend': friend });
   }
