@@ -3,6 +3,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import { AppSettings } from './app-settings';
 import { AuthController } from './auth-controller';
 import { StorageService } from './storage-service';
+import { HttpHelper } from './http-helper';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -21,7 +22,7 @@ export class TicketController {
 
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
 
-  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public storService: StorageService) {
+  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public storService: StorageService, public helper: HttpHelper) {
   }
 
   public getTickets(userId: number, token: string) {
@@ -46,7 +47,8 @@ export class TicketController {
         }
         this.storService.saveObject(KEYS.tickets, cloned);
         return res.tickets;
-      });
+      })
+      .catch(err => this.helper.convertToJSON(err));
   }
 
 }

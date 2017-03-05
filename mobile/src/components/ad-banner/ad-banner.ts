@@ -23,6 +23,10 @@ export class AdBannerComponent {
     adCtrl.getAdBanner(authCtrl.getToken())
       .then(src => {
         this.src = src;
+      })
+      .catch(err => {
+        // do nothing
+        // controller of the page should handle this
       });
   }
 
