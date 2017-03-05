@@ -64,7 +64,8 @@ export class ProVersionPage {
         this.showToast('L\'achat a été effectué avec succès');
         this.proCtrl.buyProVersion();
         this.navCtrl.setRoot(TicketsPage);
-      }).catch(err => {
+      })
+      .catch(err => {
         this.showToast('L\'achat a échoué');
       });
   }

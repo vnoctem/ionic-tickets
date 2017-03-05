@@ -10,9 +10,9 @@ import { SharedService } from './../providers/shared-service';
 import { Subscription } from 'rxjs/Subscription';
 
 export class MenuItem {
-  title: string 
-  component: any 
-  icon: string 
+  title: string
+  component: any
+  icon: string
   separator: boolean
 }
 
@@ -68,10 +68,10 @@ export class MyApp implements OnDestroy {
           this.AuthSubscription = this.sharedService.getAuthSubject()
             .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
           this.ProSubscription = this.sharedService.getProSubject()
-          .subscribe(() => {
-            // update menu links
-            this.pages.pop();
-          });
+            .subscribe(() => {
+              // update menu links
+              this.pages.pop();
+            });
         }
       }
     });

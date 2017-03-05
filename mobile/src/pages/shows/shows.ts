@@ -24,9 +24,21 @@ export class ShowsPage {
     showCtrl.getShows(
       this.friend.id,
       authCtrl.getToken()
-    ).then(shows => { 
-      this.shows = shows 
-    });
+    )
+      .then(shows => {
+        this.shows = shows;
+      });
+  }
+
+  public onRefresh(refresher) {
+    this.showCtrl.getShows(
+      this.friend.id,
+      this.authCtrl.getToken()
+    )
+      .then(shows => {
+        this.shows = shows;
+        refresher.complete();
+      });
   }
 
 }
