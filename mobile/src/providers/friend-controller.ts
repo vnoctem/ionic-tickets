@@ -21,7 +21,7 @@ export class FriendController {
 
   public getFriends(userId: number, token: string) {
     let headers = new Headers();
-    headers.append('Authorization', token);
+    headers.append('x-access-token', token);
     return this.http.get(
       `${this.socialApiUrl}/friends/${userId}`,
       new RequestOptions({ 'headers': headers })

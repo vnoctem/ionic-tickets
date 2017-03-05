@@ -20,7 +20,7 @@ export class ShowController {
 
   public getShows(friendId: number, token: string) {
     let headers = new Headers();
-    headers.append('Authorization', token);
+    headers.append('x-access-token', token);
     return this.http.get(
       `${this.socialApiUrl}/friends/${friendId}/shows`,
       new RequestOptions({ 'headers': headers })

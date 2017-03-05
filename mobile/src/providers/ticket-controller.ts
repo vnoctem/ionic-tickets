@@ -31,7 +31,7 @@ export class TicketController {
     }
 
     let headers = new Headers();
-    headers.append('Authorization', token);
+    headers.append('x-access-token', token);
     return this.http.get(
       `${this.socialApiUrl}/tickets/${userId}`,
       new RequestOptions({ 'headers': headers })
