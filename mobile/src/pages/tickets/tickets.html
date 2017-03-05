@@ -27,7 +27,15 @@
       <p>{{t.address}}<p>
     </ion-item>
   </ion-list>
-  
+
+  <ion-refresher (ionRefresh)="onRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Glisser vers le bas pour recharger"
+      refreshingSpinner="circles"
+      refreshingText="En cours de chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
 </ion-content>
 
 <ion-footer>

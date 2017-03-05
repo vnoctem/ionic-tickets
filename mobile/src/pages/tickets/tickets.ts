@@ -51,7 +51,17 @@ export class TicketsPage {
     });
   }
 
-  goToQRCode(ticket) {
+  public onRefresh(refresher) {
+    this.ticketCtrl.getTickets(
+      this.authCtrl.getCurrentUser().id,
+      this.authCtrl.getToken()
+    ).then(tickets => {
+      this.tickets = tickets;
+      refresher.complete();
+    });
+  }
+
+  public goToQRCode(ticket) {
     this.navCtrl.push(QrCodePage, { 'ticket': ticket });
   }
 
