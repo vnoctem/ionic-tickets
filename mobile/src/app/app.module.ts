@@ -20,6 +20,7 @@ import { AdBannerController } from './../providers/ad-banner-controller';
 import { ShowController } from './../providers/show-controller';
 import { StorageService } from './../providers/storage-service';
 import { InternetService } from './../providers/internet-service';
+import { HttpHelper } from './../providers/http-helper';
 import { QRCodeModule } from 'angular2-qrcode';
 
 @NgModule({
@@ -61,7 +62,8 @@ import { QRCodeModule } from 'angular2-qrcode';
     FriendController,
     ShowController,
     InternetService,
-    StorageService
+    StorageService,
+    HttpHelper
   ]
 })
 export class AppModule {}

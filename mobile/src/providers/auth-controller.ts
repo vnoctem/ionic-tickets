@@ -4,6 +4,7 @@ import { AppSettings } from './app-settings';
 import { SharedService } from './shared-service';
 import { StorageService } from './storage-service';
 import { InternetService } from './internet-service';
+import { HttpHelper } from './http-helper';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -24,7 +25,7 @@ export class AuthController {
   private currentUser: any;
   private local: boolean = false;
 
-  constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService, public storService: StorageService, public interService: InternetService) {
+  constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService, public storService: StorageService, public interService: InternetService, public helper: HttpHelper) {
     // look for token and user in local storage first
     this.currentUser = storService.loadObject(KEYS.user);
 
@@ -54,11 +55,8 @@ export class AuthController {
         this.sharedService.notifyAuthSubscribers();
         return this.currentUser;
       })
-      .catch(err => {
-        // Only return the error so that the client can handle it
-        err._body = JSON.parse(err._body);
-        return Promise.reject(err);
-      });
+      // Only return the error so that the client can handle it
+      .catch(err => this.helper.convertToJSON(err));
   }
 
   public getCurrentUser() {

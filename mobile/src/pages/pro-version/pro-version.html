@@ -31,7 +31,7 @@
         <ion-label stacked>Numéro de la carte</ion-label>
         <ion-input [(ngModel)]="cardNumber" type="number"></ion-input>
       </ion-item>
-      <ion-item class="date">
+      <ion-item class="date no-border">
         <ion-label stacked>Date d'expiration</ion-label>
         <ion-select class="month-select" [(ngModel)]="expirationMonth" cancelText="Annuler" placeholder="Mois">
           <ion-option value ="{{item.value}}" *ngFor="let item of months">{{item.text}}</ion-option>
@@ -39,6 +39,11 @@
         <ion-select [(ngModel)]="expirationYear" cancelText="Annuler" placeholder="Année">
           <ion-option *ngFor="let item of years">{{item.text}}</ion-option>
         </ion-select>
+      </ion-item>
+      <ion-item>
+        <div *ngIf="error">
+          <label class="error">{{error}}</label>
+        </div>
       </ion-item>
     </ion-list>
   </div>

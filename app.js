@@ -4,12 +4,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+// available routes
 var index = require('./routes/index');
 var tickets = require('./routes/tickets');
 var pro = require('./routes/proVersion');
 var friends = require('./routes/friends');
 var adBanner = require('./routes/adBanner');
-var passport = require('passport');
+
+// framwork so that the backend can work properly
 var cors = require('cors');
 
 var app = express();
@@ -24,10 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 
-app.use(passport.initialize());
-// Configure strategy with JWT
-require('./config/passport')(passport);
-
+// routes mapping
 app.use('/api', index);
 app.use('/api/tickets', tickets);
 app.use('/api/pro_version', pro);

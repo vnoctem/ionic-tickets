@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthController } from './../../providers/auth-controller'
-import { AdBannerController } from './../../providers/ad-banner-controller'
+import { AuthController } from './../../providers/auth-controller';
+import { AdBannerController } from './../../providers/ad-banner-controller';
 
 /*
   Generated class for the AdBanner component.
@@ -23,6 +23,10 @@ export class AdBannerComponent {
     adCtrl.getAdBanner(authCtrl.getToken())
       .then(src => {
         this.src = src;
+      })
+      .catch(err => {
+        // do nothing
+        // controller of the page should handle this
       });
   }
 

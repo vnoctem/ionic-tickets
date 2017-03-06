@@ -12,7 +12,7 @@ module.exports = [{
             'poster': '/images/shows/borgeous.jpg',
             'GUID': '0bd420bb-c83f-4699-b843-306dcd6d516a'
         },
-         {
+        {
             'id': 145625,
             'showName': 'Borgeous',
             'artistName': 'Borgeous',
@@ -23,7 +23,7 @@ module.exports = [{
             'poster': '/images/shows/borgeous.jpg',
             'GUID': '0bd420bb-c83f-4699-b843-306dcd6d517a'
         },
-         {
+        {
             'id': 145625,
             'showName': 'Borgeous',
             'artistName': 'Borgeous',
@@ -34,7 +34,7 @@ module.exports = [{
             'poster': '/images/shows/borgeous.jpg',
             'GUID': '0bd420bb-c83f-4699-b843-306dcd6d518a'
         },
-         {
+        {
             'id': 145625,
             'showName': 'Borgeous',
             'artistName': 'Borgeous',
