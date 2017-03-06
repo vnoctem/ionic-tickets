@@ -15,7 +15,7 @@ router.get('/:userId', strategy, function (req, res) {
             return;
         }
     }
-    res.json({});
+    res.json({ 'tickets': [] });
 });
 
 module.exports = router;

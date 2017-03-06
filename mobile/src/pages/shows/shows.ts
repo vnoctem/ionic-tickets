@@ -28,7 +28,7 @@ export class ShowsPage {
       authCtrl.getToken()
     )
       .then(shows => {
-        this.helper.addItemsToList(this.shows, shows, 'Aucun spectacle à afficher');
+        this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
       })
       .catch(err => {
         return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
@@ -42,7 +42,7 @@ export class ShowsPage {
       this.authCtrl.getToken()
     )
       .then(shows => {
-        this.helper.addItemsToList(this.shows, shows, 'Aucun spectacle à afficher');
+        this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
         refresher.complete();
       })
       .catch(err => {
