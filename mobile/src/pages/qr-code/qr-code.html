@@ -11,8 +11,8 @@
 </ion-header>
 
 <ion-content padding fullscreen="true">
-  <!--<ion-label stacked>Propriétaire</ion-label>-->
-  <!--<ion-label class="label-ticket-owner">Ben Smith</ion-label>-->
+  <ion-label>{{ticket.id}}</ion-label>
+  <ion-label>{{ticket.GUID}}</ion-label>
   <qr-code [value]="ticket.GUID" [size]="250"></qr-code>
 </ion-content>
 
