@@ -23,17 +23,14 @@ export class AuthController {
 
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
   private currentUser: any;
-  private local: boolean = false;
 
   constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService, public storService: StorageService, public interService: InternetService, public helper: HttpHelper) {
     // look for token and user in local storage first
     this.currentUser = storService.loadObject(KEYS.user);
-
-    this.local = !interService.hasInternetAccess();
   }
 
   public isLocal() {
-    return this.local;
+    return !this.interService.hasInternetAccess();
   }
 
   public updateProVersion() {

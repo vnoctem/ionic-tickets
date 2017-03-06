@@ -7,6 +7,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { AuthController } from './../providers/auth-controller';
 import { SharedService } from './../providers/shared-service';
+import { InternetService } from './../providers/internet-service';
 import { Subscription } from 'rxjs/Subscription';
 
 export class MenuItem {
@@ -30,7 +31,12 @@ export class MyApp implements OnDestroy {
   private AuthSubscription: Subscription;
   private ProSubscription: Subscription;
 
-  constructor(public platform: Platform, public authCtrl: AuthController, public sharedService: SharedService) {
+  private disconnectSubscription: Subscription;
+  // for some reasons, onDisconnect is fired twice every time
+  // so we need to make use of a boolean
+  private isLocal: boolean = false;
+
+  constructor(public platform: Platform, public authCtrl: AuthController, public sharedService: SharedService, public interService: InternetService) {
     this.initializeApp();
 
     // initializae the menu
@@ -51,8 +57,7 @@ export class MyApp implements OnDestroy {
       if (this.authCtrl.isLocal()) { // there's no internet access
         // show tickets from local storage
         this.rootPage = TicketsPage;
-        // remove all menu links
-        this.pages.length = 0;
+        this.isLocal = true;
       } else {
         // update profile in both case, but in a different way
         // and other configurations
@@ -77,7 +82,20 @@ export class MyApp implements OnDestroy {
     });
   }
 
-  openPage(page) {
+  // Respond after Angular initializes the component's views and child views
+  // need to be done outside of ready(), preventing from crashing
+  public ngAfterViewInit() {
+    // watch network for a disconnect
+    this.disconnectSubscription = this.interService.GetOnDisconnect().subscribe(() => {
+      if (!this.isLocal) {
+        alert('Déconnexion détecté');
+        this.nav.setRoot(TicketsPage);
+        this.isLocal = true;
+      }
+    });
+  }
+
+  public openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
@@ -92,5 +110,6 @@ export class MyApp implements OnDestroy {
     // unsubscribe to ensure no memory leaks
     this.AuthSubscription.unsubscribe();
     this.ProSubscription.unsubscribe();
+    this.disconnectSubscription.unsubscribe();
   }
 }

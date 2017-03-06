@@ -81,7 +81,7 @@ export class TicketsPage {
   }
 
   public goToQRCode(ticket) {
-    this.navCtrl.push(QrCodePage, { 'ticket': ticket });
+    this.navCtrl.push(QrCodePage, { 'ticket': ticket, 'isLocal': this.isLocal });
   }
 
 }
