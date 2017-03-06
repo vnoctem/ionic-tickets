@@ -16,7 +16,7 @@ router.get('/:userId', strategy, function (req, res) {
             return;
         }
     }
-    res.json({});
+    res.json({ 'friends': [] });
 });
 
 router.get('/:friendId/shows', strategy, function (req, res) {
@@ -31,7 +31,7 @@ router.get('/:friendId/shows', strategy, function (req, res) {
             return;
         }
     }
-    res.json({});
+    res.json({ 'shows': [] });
 });
 
 module.exports = router;

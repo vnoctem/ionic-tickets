@@ -50,7 +50,7 @@ export class TicketsPage {
       authCtrl.getToken()
     )
       .then(tickets => {
-        this.helper.addItemsToList(this.tickets, tickets, 'Aucun billet à afficher');
+        this.tickets = this.helper.ensureListNotEmpty(tickets, 'Aucun billet à afficher');
       })
       .catch(err => {
         if (!this.isLocal) {
@@ -66,7 +66,7 @@ export class TicketsPage {
       this.authCtrl.getToken()
     )
       .then(tickets => {
-        this.helper.addItemsToList(this.tickets, tickets, 'Aucun billet à afficher');
+        this.tickets = this.helper.ensureListNotEmpty(tickets, 'Aucun billet à afficher');
         refresher.complete();
       })
       .catch(err => {
