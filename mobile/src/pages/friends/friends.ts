@@ -27,7 +27,7 @@ export class FriendsPage {
       authCtrl.getToken()
     )
       .then(friends => {
-        this.friends = friends;
+        this.helper.addItemsToList(this.friends, friends, 'Aucun ami à afficher');
       })
       .catch(err => {
         return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
@@ -41,7 +41,7 @@ export class FriendsPage {
       this.authCtrl.getToken()
     )
       .then(friends => {
-        this.friends = friends;
+        this.helper.addItemsToList(this.friends, friends, 'Aucun ami à afficher');
         refresher.complete();
       })
       .catch(err => {

@@ -44,4 +44,12 @@ export class HttpHelper {
     return Promise.reject(err);
   }
 
+  public addItemsToList(list: any, copyTo: any, message: string) {
+    if (copyTo.length == 0) {
+      this.showToast(message);
+    } else {
+      list = copyTo;
+    }
+  }
+
 }
