@@ -76,7 +76,7 @@ module.exports = [{
             'location': 'New City Gas',
             'address': '950 Rue Ottawa, Montréal, QC H3C 1S4',
             'poster': '/images/shows/borgeous.jpg',
-            'GUID': '0bd420bb-c83f-4699-b843-306dcd6d516a'
+            'GUID': '0bd420bb-c83f-4699-b843-306dcd6d536a'
         },
         {
             'id': 111232,
@@ -86,7 +86,7 @@ module.exports = [{
             'location': 'Centre de la petitesse',
             'address': ' Pierrefonds, QC H4B 5G0',
             'poster': '/images/shows/petitshow.png',
-            'GUID': '0bd420bb-c83f-4699-b843-306dcd6d516a'
+            'GUID': '0bd420bb-c83f-4699-b843-306dcd6d546a'
         },
         {
             'id': 417231,
@@ -96,7 +96,7 @@ module.exports = [{
             'location': 'Centre Bell',
             'address': '1909 Avenue des Canadiens-de-Montréal, Montréal, QC H4B 5G0',
             'poster': '/images/shows/mystere.jpg',
-            'GUID': '0bd420bb-c83f-4699-b843-306dcd6d516a'
+            'GUID': '0bd420bb-c83f-4699-b843-306dcd6d556a'
         }
     ]
 }];
