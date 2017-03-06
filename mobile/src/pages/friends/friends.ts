@@ -46,6 +46,7 @@ export class FriendsPage {
       })
       .catch(err => {
         return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        // no need to call refresher since it will be destroyed when redirecting
       })
       .catch(err => {
         if (err.status == 0) { // api unavailable

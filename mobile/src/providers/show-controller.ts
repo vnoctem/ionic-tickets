@@ -3,6 +3,7 @@ import { Http, RequestOptions, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AppSettings } from './app-settings';
+import { HttpHelper } from './http-helper';
 
 /*
   Generated class for the ShowController provider.
@@ -15,7 +16,7 @@ export class ShowController {
 
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
 
-  constructor(public http: Http, public appSettings: AppSettings) {
+  constructor(public http: Http, public appSettings: AppSettings, public helper: HttpHelper) {
   }
 
   public getShows(friendId: number, token: string) {
@@ -27,7 +28,8 @@ export class ShowController {
     )
       .map(res => res.json())
       .toPromise()
-      .then(res => res.shows);
+      .then(res => res.shows)
+      .catch(err => this.helper.convertToJSON(err));
   }
 
 }
