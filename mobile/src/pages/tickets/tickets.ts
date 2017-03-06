@@ -46,8 +46,8 @@ export class TicketsPage {
     this.isLocal = this.authCtrl.isLocal();
 
     ticketCtrl.getTickets(
-      authCtrl.getCurrentUser().id,
-      authCtrl.getToken()
+      authCtrl.getCurrentUser() ? authCtrl.getCurrentUser().id : -1,
+      authCtrl.getCurrentUser() ? authCtrl.getToken() : ''
     )
       .then(tickets => {
         this.tickets = this.helper.ensureListNotEmpty(tickets, 'Aucun billet à afficher');
@@ -81,7 +81,7 @@ export class TicketsPage {
   }
 
   public goToQRCode(ticket) {
-    this.navCtrl.push(QrCodePage, { 'ticket': ticket });
+    this.navCtrl.push(QrCodePage, { 'ticket': ticket, 'isLocal': this.isLocal });
   }
 
 }

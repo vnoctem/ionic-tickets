@@ -18,7 +18,7 @@ export class QrCodePage {
   private ticket: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController) {
-    this.isLocal = this.authCtrl.isLocal();
+    this.isLocal = navParams.get('isLocal');
     this.ticket = navParams.get('ticket');
   }
 

@@ -23,17 +23,14 @@ export class AuthController {
 
   private socialApiUrl: string = this.appSettings.getSocialApiUrl();
   private currentUser: any;
-  private local: boolean = false;
 
   constructor(public http: Http, public appSettings: AppSettings, public sharedService: SharedService, public storService: StorageService, public interService: InternetService, public helper: HttpHelper) {
     // look for token and user in local storage first
     this.currentUser = storService.loadObject(KEYS.user);
-
-    this.local = !interService.hasInternetAccess();
   }
 
   public isLocal() {
-    return this.local;
+    return !this.interService.hasInternetAccess();
   }
 
   public updateProVersion() {
@@ -49,6 +46,16 @@ export class AuthController {
       .then(res => {
         this.currentUser = res.user;
         this.currentUser.proVersion = false;
+        // check if this user has already brought a pro version
+        let preUser = localStorage.getItem(KEYS.user);
+        if (preUser) {
+          let preUserObj = JSON.parse(preUser);
+          // compare if both are the same user
+          if (preUserObj.id == this.currentUser.id) {
+            // keep the value from the previous one
+            this.currentUser.proVersion = preUserObj.proVersion;
+          }
+        }
         // Save token and user locally
         this.storService.saveObject(KEYS.user, this.currentUser);
         // Notify all subscribers

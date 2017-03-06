@@ -19,4 +19,8 @@ export class InternetService {
     return Network.type !== 'none' && Network.type !== 'unknown';
   }
 
+  public GetOnDisconnect() {
+    return Network.onDisconnect();
+  }
+
 }
