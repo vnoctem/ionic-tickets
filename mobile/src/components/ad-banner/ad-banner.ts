@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { AuthController } from './../../providers/auth-controller'
-import { AdBannerController } from './../../providers/ad-banner-controller'
+import { AuthController } from './../../providers/auth-controller';
+import { AdBannerController } from './../../providers/ad-banner-controller';
 
 /*
   Generated class for the AdBanner component.

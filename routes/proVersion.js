@@ -6,10 +6,15 @@ router.post('/buy', strategy, function (req, res) {
     // just make sure that all fields we need are present
     if (req.body.cardName && req.body.cardNumber && req.body.expirationYear && req.body.expirationMonth) {
         res.json({});
-        return;
+    } else {
+        if (!req.body.cardName) {
+            res.status(400).json({ 'message': 'Le nom de la carte est manquant' });
+        } else if (!req.body.cardNumber) {
+            res.status(400).json({ 'message': 'Le numéro de la carte est manquant' });
+        } else if (!req.body.expirationYear || !req.body.expirationMonth) {
+            res.status(400).json({ 'message': 'L\'expiration de la carte est manquant' });
+        }
     }
-
-    res.status(400).json({});
 });
 
 module.exports = router;

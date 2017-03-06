@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ProVersionController } from './../../providers/pro-version-controller'
-import { AuthController } from './../../providers/auth-controller'
+import { AuthController } from './../../providers/auth-controller';
 import { TicketsPage } from './../../pages/tickets/tickets';
+import { HttpHelper } from './../../providers/http-helper';
+import { AuthenticationPage } from './../authentication/authentication';
 
 /*
   Generated class for the ProVersion page.
@@ -24,7 +26,7 @@ export class ProVersionPage {
   private cardName: string;
   private error: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public proCtrl: ProVersionController, public authCtrl: AuthController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public proCtrl: ProVersionController, public authCtrl: AuthController, public helper: HttpHelper) {
     // Populate years and months
     for (let i = 1; i <= 12; i++) {
       let month = {
@@ -53,12 +55,17 @@ export class ProVersionPage {
     };
     this.proCtrl.postBuy(cardInfo, this.authCtrl.getToken())
       .then(res => {
-        this.error = 'L\'achat a été effectué avec succès';
+        this.helper.showToast('L\'achat a été effectué avec succès');
         this.proCtrl.buyProVersion();
         this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
-        this.error = 'L\'achat a échoué';
+        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+      })
+      .catch(err => {
+        if (err._body.message) {
+          this.error = err._body.message;
+        }
       });
   }
 

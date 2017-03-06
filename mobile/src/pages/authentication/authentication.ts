@@ -1,8 +1,7 @@
 import { TicketsPage } from './../tickets/tickets';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { AuthController } from './../../providers/auth-controller'
-import { HttpHelper } from './../../providers/http-helper'
+import { AuthController } from './../../providers/auth-controller';
 
 /*
   Generated class for the Authentication page.
@@ -20,12 +19,7 @@ export class AuthenticationPage {
   private password: string;
   private error: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController, public helper: HttpHelper) {
-    let message = navParams.get('message');
-    if (message) {
-      helper.showToast(message);
-    }
-   }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController) {}
 
   login() {
     this.authCtrl.postLogin({

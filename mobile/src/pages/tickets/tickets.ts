@@ -2,9 +2,9 @@ import { QrCodePage } from './../qr-code/qr-code';
 import { AuthenticationPage } from './../authentication/authentication';
 import { Component, Pipe, PipeTransform } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { TicketController } from './../../providers/ticket-controller'
-import { AuthController } from './../../providers/auth-controller'
-import { HttpHelper } from './../../providers/http-helper'
+import { TicketController } from './../../providers/ticket-controller';
+import { AuthController } from './../../providers/auth-controller';
+import { HttpHelper } from './../../providers/http-helper';
 
 @Pipe({
   name: 'upcomingTickets',
@@ -53,18 +53,11 @@ export class TicketsPage {
         this.tickets = tickets;
       })
       .catch(err => {
-        this.onError(err);
-      });
-  }
-
-  public onError(err: any) {
-    if (err.status == 0) { // api unavailable
-      this.helper.showToast('Api indisponible');
-    } else if (err._body.redirect) { // invalid token
-      this.navCtrl.setRoot(AuthenticationPage, { 'message': err._body.message });
-    } else {
-      this.navCtrl.setRoot(AuthenticationPage, { 'message': 'Une erreur inconnue s\'est produite' });
-    }
+        if (!this.isLocal) {
+          return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        }
+      })
+      .catch(err => {});
   }
 
   public onRefresh(refresher) {
@@ -77,8 +70,13 @@ export class TicketsPage {
         refresher.complete();
       })
       .catch(err => {
-        this.onError(err);
+        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
         // no need to call refresher since it has been destroyed 
+      })
+      .catch(err => {
+        if (err.status == 0) { // api unavailable
+          refresher.cancel();
+        }
       });
   }
 

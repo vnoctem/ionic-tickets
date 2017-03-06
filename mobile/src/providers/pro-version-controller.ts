@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { AppSettings } from './app-settings';
 import { SharedService } from './shared-service';
 import { AuthController } from './auth-controller';
+import { HttpHelper } from './http-helper';
 
 /*
   Generated class for the ProVersionController provider.
@@ -17,7 +18,7 @@ export class ProVersionController {
 
   private paymentApiUrl: string = this.appSettings.getPaymentApiUrl();
 
-  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public sharedService: SharedService) {
+  constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public sharedService: SharedService, public helper: HttpHelper) {
   }
 
   public buyProVersion() {
@@ -38,7 +39,8 @@ export class ProVersionController {
         // notify all subscribers
         this.sharedService.notifyProSubscribers();
         return Promise.resolve();
-      });
+      })
+      .catch(err => this.helper.convertToJSON(err));
   }
 
 }

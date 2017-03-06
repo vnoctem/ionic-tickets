@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ShowController } from './../../providers/show-controller';
-import { AuthController } from './../../providers/auth-controller'
+import { AuthController } from './../../providers/auth-controller';
 
 /*
   Generated class for the Shows page.

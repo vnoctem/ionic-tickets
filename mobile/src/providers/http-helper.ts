@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /*
   Generated class for the HttpHelper provider.
@@ -30,6 +31,17 @@ export class HttpHelper {
       'position': 'bottom'
     })
       .present();
+  }
+
+  // Manage commun errors
+  public onHttpError(err: any, navCtrl: NavController, errPage) {
+    if (err.status == 0) { // api unavailable
+      this.showToast('API indisponible');
+    } else if (err._body.redirect) { // invalid token
+      this.showToast(err._body.message);
+      navCtrl.setRoot(errPage);
+    }
+    return Promise.reject(err);
   }
 
 }
