@@ -46,8 +46,8 @@ export class TicketsPage {
     this.isLocal = this.authCtrl.isLocal();
 
     ticketCtrl.getTickets(
-      authCtrl.getCurrentUser().id,
-      authCtrl.getToken()
+      authCtrl.getCurrentUser() ? authCtrl.getCurrentUser().id : -1,
+      authCtrl.getCurrentUser() ? authCtrl.getToken() : ''
     )
       .then(tickets => {
         this.tickets = this.helper.ensureListNotEmpty(tickets, 'Aucun billet à afficher');

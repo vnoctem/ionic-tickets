@@ -28,7 +28,12 @@ export class TicketController {
   public getTickets(userId: number, token: string) {
     // If no internet connection, retrieve data from local storage
     if (this.authCtrl.isLocal()) {
-      return Promise.resolve(JSON.parse(localStorage.getItem(KEYS.tickets)));
+      let localTickets = localStorage.getItem(KEYS.tickets);
+      if (localTickets) {
+        return Promise.resolve(JSON.parse(localTickets));
+      } else {
+        return Promise.resolve([]);
+      }
     }
 
     let headers = new Headers();
