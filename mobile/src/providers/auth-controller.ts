@@ -46,6 +46,16 @@ export class AuthController {
       .then(res => {
         this.currentUser = res.user;
         this.currentUser.proVersion = false;
+        // check if this user has already brought a pro version
+        let preUser = localStorage.getItem(KEYS.user);
+        if (preUser) {
+          let preUserObj = JSON.parse(preUser);
+          // compare if both are the same user
+          if (preUserObj.id == this.currentUser.id) {
+            // keep the value from the previous one
+            this.currentUser.proVersion = preUserObj.proVersion;
+          }
+        }
         // Save token and user locally
         this.storService.saveObject(KEYS.user, this.currentUser);
         // Notify all subscribers
