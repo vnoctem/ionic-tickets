@@ -72,7 +72,6 @@ module.exports = [
             }
         ]
     },
-    
     {
         'friendId': 6,
         'shows': [
@@ -99,7 +98,7 @@ module.exports = [
     {
         'friendId': 7,
         'shows': [
-             {
+            {
                 'id': 987514,
                 'showName': 'Dialogues des Carmélites',
                 'artistName': 'Opéra de Montréal',

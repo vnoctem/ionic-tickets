@@ -1,8 +1,10 @@
 import { QrCodePage } from './../qr-code/qr-code';
+import { AuthenticationPage } from './../authentication/authentication';
 import { Component, Pipe, PipeTransform } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { TicketController } from './../../providers/ticket-controller'
-import { AuthController } from './../../providers/auth-controller'
+import { TicketController } from './../../providers/ticket-controller';
+import { AuthController } from './../../providers/auth-controller';
+import { HttpHelper } from './../../providers/http-helper';
 
 @Pipe({
   name: 'upcomingTickets',
@@ -40,7 +42,7 @@ export class TicketsPage {
   private isLocal: boolean = false;
   private tickets: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public ticketCtrl: TicketController, public authCtrl: AuthController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public ticketCtrl: TicketController, public authCtrl: AuthController, public helper: HttpHelper) {
     this.isLocal = this.authCtrl.isLocal();
 
     ticketCtrl.getTickets(
@@ -49,7 +51,13 @@ export class TicketsPage {
     )
       .then(tickets => {
         this.tickets = tickets;
-      });
+      })
+      .catch(err => {
+        if (!this.isLocal) {
+          return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        }
+      })
+      .catch(err => {});
   }
 
   public onRefresh(refresher) {
@@ -60,6 +68,15 @@ export class TicketsPage {
       .then(tickets => {
         this.tickets = tickets;
         refresher.complete();
+      })
+      .catch(err => {
+        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        // no need to call refresher since it will be destroyed when redirecting
+      })
+      .catch(err => {
+        if (err.status == 0) { // api unavailable
+          refresher.cancel();
+        }
       });
   }
 

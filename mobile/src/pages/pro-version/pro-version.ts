@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import { ProVersionController } from './../../providers/pro-version-controller'
-import { AuthController } from './../../providers/auth-controller'
+import { AuthController } from './../../providers/auth-controller';
 import { TicketsPage } from './../../pages/tickets/tickets';
+import { HttpHelper } from './../../providers/http-helper';
+import { AuthenticationPage } from './../authentication/authentication';
 
 /*
   Generated class for the ProVersion page.
@@ -22,8 +24,9 @@ export class ProVersionPage {
   private expirationYear: number;
   private cardNumber: number;
   private cardName: string;
+  private error: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public proCtrl: ProVersionController, public authCtrl: AuthController, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public proCtrl: ProVersionController, public authCtrl: AuthController, public helper: HttpHelper) {
     // Populate years and months
     for (let i = 1; i <= 12; i++) {
       let month = {
@@ -42,15 +45,6 @@ export class ProVersionPage {
     }
   }
 
-  public showToast(message: string) {
-    this.toastCtrl.create({
-      'message': message,
-      'duration': 3000,
-      'position': 'bottom'
-    })
-      .present();
-  }
-
   // carry out payment to buy the version without ad
   public confirmPayment() {
     let cardInfo = {
@@ -61,12 +55,17 @@ export class ProVersionPage {
     };
     this.proCtrl.postBuy(cardInfo, this.authCtrl.getToken())
       .then(res => {
-        this.showToast('L\'achat a été effectué avec succès');
+        this.helper.showToast('L\'achat a été effectué avec succès');
         this.proCtrl.buyProVersion();
         this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
-        this.showToast('L\'achat a échoué');
+        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+      })
+      .catch(err => {
+        if (err._body.message) {
+          this.error = err._body.message;
+        }
       });
   }
 

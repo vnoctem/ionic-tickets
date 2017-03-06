@@ -1,4 +1,4 @@
-var jwt = require('jwt-simple');
+var jwt = require('jsonwebtoken');
 var _ = require('lodash');
 var bcrypt = require('bcrypt');
 var router = require('express').Router();
@@ -8,32 +8,27 @@ var admin = require('../models/admin');
 var secret = require('../config/secret');
 
 router.post('/login', function (req, res, next) {
-    if (!req.body.password) {
+    if (!req.body.password || !req.body.username) {
         // Bad request
-        res.status(400).json({ 'message': 'Le mot de passe est invalide' });
+        res.status(400).json({ 'message': 'Le nom d\'utilisateur ou Le mot de passe est invalide' });
         return;
     }
 
     // Compare password with bcrypt
     bcrypt.compare(req.body.password, admin.password).then(function (success) {
         if (success) {
+            let ret = _.cloneDeep(admin);
             // Replace 'password' element by the one with clear text
-            var ret = _.cloneDeep(admin);
             ret['password'] = req.body.password;
             // Create token
-            var token = jwt.encode(ret, secret.key);
-            // Send back the token
-            res.json({
-                'user': {
-                    'id': admin.id,
-                    'username': admin.username,
-                    'fullname': admin.fullname,
-                    'photo': 'http://' + req.headers.host + admin.photo,
-                    'token': `JWT ${token}`
-                }
+            ret['token'] = jwt.sign(admin, secret.key, {
+                expiresIn: 30 // expires in 30 sec
             });
+            ret['photo'] = 'http://' + req.headers.host + ret['photo'];
+
+            res.json({ 'user': ret });
         } else {
-            res.status(400).json({ 'message': 'Le mot de passe est incorrect' });;
+            res.status(400).json({ 'message': 'Le mot de passe est incorrect' });
         }
     });
 });

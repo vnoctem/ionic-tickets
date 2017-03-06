@@ -20,7 +20,7 @@ export class AdBannerController {
 
   public getAdBanner(token: string) {
     let headers = new Headers();
-    headers.append('Authorization', token);
+    headers.append('x-access-token', token);
     return this.http.get(
       `${this.adApiUrl}/ad_banner`,
       new RequestOptions({ 'headers': headers })
