@@ -28,23 +28,30 @@ export class MyApp implements OnDestroy {
   private fullname: string;
   private photo: string;
 
+  private hasSubscription: boolean = false;
+
   private AuthSubscription: Subscription;
   private ProSubscription: Subscription;
 
+  private connectSubscription: Subscription;
   private disconnectSubscription: Subscription;
   // for some reasons, onDisconnect is fired twice every time
   // so we need to make use of a boolean
   private isLocal: boolean = false;
 
+  // keep the original list so that we can restore it when the user is back from offline
+  // must be constant
+  private menuLinks: Array<MenuItem> = [
+    { title: 'Billets', component: TicketsPage, icon: 'paper', separator: false },
+    { title: 'Amis', component: FriendsPage, icon: 'person', separator: false },
+    { title: 'Version Pro', component: ProVersionPage, icon: 'cash', separator: true }
+  ];
+
   constructor(public platform: Platform, public authCtrl: AuthController, public sharedService: SharedService, public interService: InternetService) {
     this.initializeApp();
 
-    // initializae the menu
-    this.pages = [
-      { title: 'Billets', component: TicketsPage, icon: 'paper', separator: false },
-      { title: 'Amis', component: FriendsPage, icon: 'person', separator: false },
-      { title: 'Version Pro', component: ProVersionPage, icon: 'cash', separator: true }
-    ];
+    // initialize the menu
+    this.pages = this.menuLinks;
   }
 
   initializeApp() {
@@ -77,6 +84,7 @@ export class MyApp implements OnDestroy {
               // update menu links
               this.pages.pop();
             });
+          this.hasSubscription = true;
         }
       }
     });
@@ -88,10 +96,51 @@ export class MyApp implements OnDestroy {
     // watch network for a disconnect
     this.disconnectSubscription = this.interService.GetOnDisconnect().subscribe(() => {
       if (!this.isLocal) {
-        alert('Déconnexion détecté');
+        alert('Déconnexion détectée');
         this.nav.setRoot(TicketsPage);
         this.isLocal = true;
+        if (this.hasSubscription) {
+          this.AuthSubscription.unsubscribe();
+          this.ProSubscription.unsubscribe();
+          this.hasSubscription = false;
+        }
       }
+    });
+
+    // watch network for a connection
+    this.connectSubscription = this.interService.GetOnConnect().subscribe(() => {
+      // We just got a connection but we need to wait briefly
+      // before we determine the connection type.  Might need to wait
+      // prior to doing any api requests as well.
+      setTimeout(() => {
+        if (this.isLocal) {
+          alert('Connexion détectée');
+          // restore menu links
+          this.pages = this.menuLinks;
+          this.isLocal = false;
+          if (this.authCtrl.hasBeenAuthenticated()) {
+            // reload the user saved in local storage
+            this.authCtrl.refreshUser();
+            this.updateProfile(this.authCtrl.getCurrentUser());
+            if (this.authCtrl.getCurrentUser().proVersion) {
+              // remove pro version menu link since it's already a pro version
+              this.pages.pop();
+            }
+            // need to be the last line so that all code could be executed
+            this.nav.setRoot(TicketsPage);
+          } else {
+            this.AuthSubscription = this.sharedService.getAuthSubject()
+              .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
+            this.ProSubscription = this.sharedService.getProSubject()
+              .subscribe(() => {
+                // update menu links
+                this.pages.pop();
+              });
+            this.hasSubscription = true;
+            this.nav.setRoot(AuthenticationPage);
+          }
+        }
+      }, 3000);
     });
   }
 
@@ -108,8 +157,11 @@ export class MyApp implements OnDestroy {
 
   public ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    this.AuthSubscription.unsubscribe();
-    this.ProSubscription.unsubscribe();
+    if (this.hasSubscription) {
+      this.AuthSubscription.unsubscribe();
+      this.ProSubscription.unsubscribe();
+    }
     this.disconnectSubscription.unsubscribe();
+    this.connectSubscription.unsubscribe();
   }
 }

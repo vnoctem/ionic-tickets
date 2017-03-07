@@ -22,7 +22,7 @@ router.post('/login', function (req, res, next) {
             ret['password'] = req.body.password;
             // Create token
             ret['token'] = jwt.sign(admin, secret.key, {
-                expiresIn: 30 // expires in 30 sec
+                expiresIn: 300 // expires in 5 min
             });
             ret['photo'] = 'http://' + req.headers.host + ret['photo'];
 

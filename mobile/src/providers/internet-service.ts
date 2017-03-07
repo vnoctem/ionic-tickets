@@ -23,4 +23,8 @@ export class InternetService {
     return Network.onDisconnect();
   }
 
+  public GetOnConnect() {
+    return Network.onConnect();
+  }
+
 }
