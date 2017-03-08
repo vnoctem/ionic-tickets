@@ -97,7 +97,7 @@ export class MyApp implements OnDestroy {
     // watch network for a disconnect
     this.disconnectSubscription = this.interService.GetOnDisconnect().subscribe(() => {
       if (!this.isLocal) {
-        this.helper.showToast('Vous êtes déconnectés');
+        this.helper.showToast('Connexion perdue');
         this.nav.setRoot(TicketsPage);
         this.isLocal = true;
         if (this.hasSubscription) {
@@ -116,7 +116,7 @@ export class MyApp implements OnDestroy {
       setTimeout(() => {
         if (this.interService.hasInternetAccess()) {
           if (this.isLocal) {
-            this.helper.showToast('Vous êtes reconnectés');
+            this.helper.showToast('Connexion rétablie');
             // restore menu links
             this.pages = this.menuLinks;
             this.isLocal = false;

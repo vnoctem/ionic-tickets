@@ -20,19 +20,30 @@ import { AuthenticationPage } from './../authentication/authentication';
 export class FriendsPage {
 
   private friends: Array<any>;
+  private message: string;
+  private loading: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public friendCtrl: FriendController, public authCtrl: AuthController, public helper: HttpHelper) {
+    this.message = 'En cours de chargement ...';
+    this.loading = true;
+
     friendCtrl.getFriends(
       authCtrl.getCurrentUser().id,
       authCtrl.getToken()
     )
       .then(friends => {
-        //this.friends = this.helper.ensureListNotEmpty(friends, 'Aucun ami à afficher');
+        this.message = '';
+        this.loading = false;
+        this.friends = this.ensureListNotEmpty(friends);
       })
       .catch(err => {
-        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        this.message = '';
+        this.loading = false;
+        return this.helper.onHttpError(err);
       })
-      .catch(err => {});
+      .catch(err => {
+        this.manageErrors(err);
+      });
   }
 
   public onRefresh(refresher) {
@@ -41,21 +52,40 @@ export class FriendsPage {
       this.authCtrl.getToken()
     )
       .then(friends => {
-        //this.friends = this.helper.ensureListNotEmpty(friends, 'Aucun ami à afficher');
+        this.friends = this.ensureListNotEmpty(friends);
         refresher.complete();
       })
       .catch(err => {
-        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        return this.helper.onHttpError(err);
         // no need to call refresher since it will be destroyed when redirecting
       })
       .catch(err => {
-        if (err.status == 0) { // api unavailable
+        if (!err.redirect) {
           refresher.cancel();
         }
+        this.manageErrors(err);
       });
   }
 
-  goToShows(friend) {
+  private ensureListNotEmpty(list: any) {
+    if (list.length == 0) {
+      this.message = 'Aucun ami à afficher';
+      return [];
+    }
+    return list;
+  }
+
+  private manageErrors(err: any) {
+    if (err.redirect) {
+      this.navCtrl.setRoot(AuthenticationPage, {
+        'error': err.message
+      });
+    } else if (err.message) {
+      this.message = err.message;
+    }
+  }
+
+  public goToShows(friend) {
     this.navCtrl.push(ShowsPage, { 'friend': friend });
   }
 
