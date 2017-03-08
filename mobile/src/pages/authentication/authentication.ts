@@ -34,7 +34,7 @@ export class AuthenticationPage {
       })
       .catch(err => {
         if (err.status == 0) { // api unavailable
-          this.error = 'API indisponible';
+          this.error = 'Le serveur n\'est pas disponible';
         } else if (err._body.message) {
           this.error = err._body.message;
         }
