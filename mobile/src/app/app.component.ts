@@ -7,6 +7,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { AuthController } from './../providers/auth-controller';
 import { SharedService } from './../providers/shared-service';
+import { HttpHelper } from './../providers/http-helper';
 import { InternetService } from './../providers/internet-service';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -47,7 +48,7 @@ export class MyApp implements OnDestroy {
     { title: 'Version Pro', component: ProVersionPage, icon: 'cash', separator: true }
   ];
 
-  constructor(public platform: Platform, public authCtrl: AuthController, public sharedService: SharedService, public interService: InternetService) {
+  constructor(public platform: Platform, public authCtrl: AuthController, public sharedService: SharedService, public interService: InternetService, public helper: HttpHelper) {
     this.initializeApp();
 
     // initialize the menu
@@ -96,7 +97,7 @@ export class MyApp implements OnDestroy {
     // watch network for a disconnect
     this.disconnectSubscription = this.interService.GetOnDisconnect().subscribe(() => {
       if (!this.isLocal) {
-        alert('Déconnexion détectée');
+        this.helper.showToast('Connexion perdue');
         this.nav.setRoot(TicketsPage);
         this.isLocal = true;
         if (this.hasSubscription) {
@@ -115,7 +116,7 @@ export class MyApp implements OnDestroy {
       setTimeout(() => {
         if (this.interService.hasInternetAccess()) {
           if (this.isLocal) {
-            alert('Connexion détectée');
+            this.helper.showToast('Connexion rétablie');
             // restore menu links
             this.pages = this.menuLinks;
             this.isLocal = false;

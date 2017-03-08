@@ -14,7 +14,7 @@
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-refresher (ionRefresh)="onRefresh($event)">
+  <ion-refresher (ionRefresh)="onRefresh($event)" enabled="{{!loading}}">
     <ion-refresher-content
       pullingIcon="arrow-dropdown"
       pullingText="Glisser vers le bas pour recharger"
@@ -22,6 +22,10 @@
       refreshingText="En cours de chargement...">
     </ion-refresher-content>
   </ion-refresher>
+
+  <div padding class="message" *ngIf="message">
+    <label class="directive">{{message}}</label>
+  </div>
 
   <ion-list>
     <ion-item *ngFor="let f of friends" (click)="goToShows(f)" class="full-border-bottom">
