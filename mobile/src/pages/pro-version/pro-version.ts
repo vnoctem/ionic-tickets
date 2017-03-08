@@ -60,13 +60,23 @@ export class ProVersionPage {
         this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
-        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        return this.helper.onHttpError(err);
       })
       .catch(err => {
-        if (err._body.message) {
-          this.error = err._body.message;
-        }
+        this.manageErrors(err);
       });
+  }
+
+  private manageErrors(err: any) {
+    if (err.redirect) {
+      this.navCtrl.setRoot(AuthenticationPage, {
+        'error': err.message
+      });
+    } else if (err.message) {
+      this.error = err.message;
+    } else if (err.source._body.message) {
+      this.error = err.source._body.message;
+    }
   }
 
 }
