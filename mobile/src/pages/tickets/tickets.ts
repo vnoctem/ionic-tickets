@@ -41,23 +41,33 @@ export class TicketsPage {
 
   private isLocal: boolean = false;
   private tickets: Array<any>;
+  private message: string;
+  private loading: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public ticketCtrl: TicketController, public authCtrl: AuthController, public helper: HttpHelper) {
     this.isLocal = this.authCtrl.isLocal();
+    this.message = 'En cours de chargement ...';
+    this.loading = true;
 
     ticketCtrl.getTickets(
       authCtrl.getCurrentUser() ? authCtrl.getCurrentUser().id : -1,
       authCtrl.getCurrentUser() ? authCtrl.getToken() : ''
     )
       .then(tickets => {
-        this.tickets = this.helper.ensureListNotEmpty(tickets, 'Aucun billet à afficher');
+        this.message = '';
+        this.loading = false;
+        this.tickets = this.ensureListNotEmpty(tickets);
       })
       .catch(err => {
+        this.message = '';
+        this.loading = false;
         if (!this.isLocal) {
-          return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+          return this.helper.onHttpError(err);
         }
       })
-      .catch(err => {});
+      .catch(err => {
+        this.manageErrors(err);
+      });
   }
 
   public onRefresh(refresher) {
@@ -66,18 +76,37 @@ export class TicketsPage {
       this.authCtrl.getToken()
     )
       .then(tickets => {
-        this.tickets = this.helper.ensureListNotEmpty(tickets, 'Aucun billet à afficher');
+        this.tickets = this.ensureListNotEmpty(tickets);
         refresher.complete();
       })
       .catch(err => {
-        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        return this.helper.onHttpError(err);
         // no need to call refresher since it will be destroyed when redirecting
       })
       .catch(err => {
-        if (err.status == 0) { // api unavailable
+        if (!err.redirect) {
           refresher.cancel();
         }
+        this.manageErrors(err);
       });
+  }
+
+  private ensureListNotEmpty(list: any) {
+    if (list.length == 0) {
+      this.message = 'Aucun billet à afficher';
+      return [];
+    }
+    return list;
+  }
+
+  private manageErrors(err: any) {
+    if (err.redirect) {
+      this.navCtrl.setRoot(AuthenticationPage, {
+        'error': err.message
+      });
+    } else if (err.message) {
+      this.message = err.message;
+    }
   }
 
   public goToQRCode(ticket) {

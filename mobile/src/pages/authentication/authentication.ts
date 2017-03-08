@@ -20,7 +20,9 @@ export class AuthenticationPage {
   private password: string;
   private error: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController, public helper: HttpHelper) { }
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController, public helper: HttpHelper) {
+    this.error = navParams.get('error');
+  }
 
   login() {
     this.authCtrl.postLogin({

@@ -15,6 +15,18 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
+.message {
+    text-align: center;
+    margin-top: 10px;
+    background: white;
+}
+
+.directive {
+    font-size: 1.2em;
+    color: #999999;
+    font-weight: bold;
+}
+
 .error {
     color: red;
 }

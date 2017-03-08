@@ -27,10 +27,10 @@ export class FriendsPage {
       authCtrl.getToken()
     )
       .then(friends => {
-        this.friends = this.helper.ensureListNotEmpty(friends, 'Aucun ami à afficher');
+        //this.friends = this.helper.ensureListNotEmpty(friends, 'Aucun ami à afficher');
       })
       .catch(err => {
-        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
       })
       .catch(err => {});
   }
@@ -41,11 +41,11 @@ export class FriendsPage {
       this.authCtrl.getToken()
     )
       .then(friends => {
-        this.friends = this.helper.ensureListNotEmpty(friends, 'Aucun ami à afficher');
+        //this.friends = this.helper.ensureListNotEmpty(friends, 'Aucun ami à afficher');
         refresher.complete();
       })
       .catch(err => {
-        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
         // no need to call refresher since it will be destroyed when redirecting
       })
       .catch(err => {

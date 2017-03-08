@@ -60,7 +60,7 @@ export class ProVersionPage {
         this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
-        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
       })
       .catch(err => {
         if (err._body.message) {

@@ -28,10 +28,10 @@ export class ShowsPage {
       authCtrl.getToken()
     )
       .then(shows => {
-        this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
+        //this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
       })
       .catch(err => {
-        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
       })
       .catch(err => {});
   }
@@ -42,11 +42,11 @@ export class ShowsPage {
       this.authCtrl.getToken()
     )
       .then(shows => {
-        this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
+        //this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
         refresher.complete();
       })
       .catch(err => {
-        return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
         // no need to call refresher since it will be destroyed when redirecting
       })
       .catch(err => {

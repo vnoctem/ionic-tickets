@@ -34,21 +34,20 @@ export class HttpHelper {
   }
 
   // Manage commun errors
-  public onHttpError(err: any, navCtrl: NavController, errPage) {
+  public onHttpError(err: any) {
+    let message = '';
+    let redirect = false;
     if (err.status == 0) { // api unavailable
-      this.showToast('API indisponible');
+      message = 'API indisponible';
     } else if (err._body.redirect) { // invalid token
-      this.showToast(err._body.message);
-      navCtrl.setRoot(errPage);
+      message = err._body.message;
+      redirect = true;
     }
-    return Promise.reject(err);
-  }
-
-  public ensureListNotEmpty(list: any, message: string) {
-    if (list.length == 0) {
-      this.showToast(message);
-    }
-    return list;
+    return Promise.reject({
+      'message': message,
+      'redirect': redirect,
+      'err': err
+    });
   }
 
 }
