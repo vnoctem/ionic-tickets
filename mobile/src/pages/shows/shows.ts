@@ -19,21 +19,31 @@ export class ShowsPage {
 
   private shows: Array<any>;
   private friend: any;
+  private message: string;
+  private loading: boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public showCtrl: ShowController, public authCtrl: AuthController, public helper: HttpHelper) {
     this.friend = navParams.get('friend');
+    this.message = 'En cours de chargement ...';
+    this.loading = true;
 
     showCtrl.getShows(
       this.friend.id,
       authCtrl.getToken()
     )
       .then(shows => {
-        //this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
+        this.message = '';
+        this.loading = false;
+        this.shows = this.ensureListNotEmpty(shows);
       })
       .catch(err => {
-        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        this.message = '';
+        this.loading = false;
+        return this.helper.onHttpError(err);
       })
-      .catch(err => {});
+      .catch(err => {
+        this.manageErrors(err);
+      });
   }
 
   public onRefresh(refresher) {
@@ -42,18 +52,37 @@ export class ShowsPage {
       this.authCtrl.getToken()
     )
       .then(shows => {
-        //this.shows = this.helper.ensureListNotEmpty(shows, 'Aucun spectacle à afficher');
+        this.shows = this.ensureListNotEmpty(shows);
         refresher.complete();
       })
       .catch(err => {
-        //return this.helper.onHttpError(err, this.navCtrl, AuthenticationPage);
+        return this.helper.onHttpError(err);
         // no need to call refresher since it will be destroyed when redirecting
       })
       .catch(err => {
-        if (err.status == 0) { // api unavailable
+        if (!err.redirect) {
           refresher.cancel();
         }
+        this.manageErrors(err);
       });
+  }
+
+  private ensureListNotEmpty(list: any) {
+    if (list.length == 0) {
+      this.message = 'Aucun spectacle à afficher';
+      return [];
+    }
+    return list;
+  }
+
+  private manageErrors(err: any) {
+    if (err.redirect) {
+      this.navCtrl.setRoot(AuthenticationPage, {
+        'error': err.message
+      });
+    } else if (err.message) {
+      this.message = err.message;
+    }
   }
 
 }
