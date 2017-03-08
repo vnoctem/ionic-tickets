@@ -113,31 +113,33 @@ export class MyApp implements OnDestroy {
       // before we determine the connection type.  Might need to wait
       // prior to doing any api requests as well.
       setTimeout(() => {
-        if (this.isLocal) {
-          alert('Connexion détectée');
-          // restore menu links
-          this.pages = this.menuLinks;
-          this.isLocal = false;
-          if (this.authCtrl.hasBeenAuthenticated()) {
-            // reload the user saved in local storage
-            this.authCtrl.refreshUser();
-            this.updateProfile(this.authCtrl.getCurrentUser());
-            if (this.authCtrl.getCurrentUser().proVersion) {
-              // remove pro version menu link since it's already a pro version
-              this.pages.pop();
-            }
-            // need to be the last line so that all code could be executed
-            this.nav.setRoot(TicketsPage);
-          } else {
-            this.AuthSubscription = this.sharedService.getAuthSubject()
-              .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
-            this.ProSubscription = this.sharedService.getProSubject()
-              .subscribe(() => {
-                // update menu links
+        if (this.interService.hasInternetAccess()) {
+          if (this.isLocal) {
+            alert('Connexion détectée');
+            // restore menu links
+            this.pages = this.menuLinks;
+            this.isLocal = false;
+            if (this.authCtrl.hasBeenAuthenticated()) {
+              // reload the user saved in local storage
+              this.authCtrl.refreshUser();
+              this.updateProfile(this.authCtrl.getCurrentUser());
+              if (this.authCtrl.getCurrentUser().proVersion) {
+                // remove pro version menu link since it's already a pro version
                 this.pages.pop();
-              });
-            this.hasSubscription = true;
-            this.nav.setRoot(AuthenticationPage);
+              }
+              // need to be the last line so that all code could be executed
+              this.nav.setRoot(TicketsPage);
+            } else {
+              this.AuthSubscription = this.sharedService.getAuthSubject()
+                .subscribe(() => this.updateProfile(this.authCtrl.getCurrentUser()));
+              this.ProSubscription = this.sharedService.getProSubject()
+                .subscribe(() => {
+                  // update menu links
+                  this.pages.pop();
+                });
+              this.hasSubscription = true;
+              this.nav.setRoot(AuthenticationPage);
+            }
           }
         }
       }, 3000);
