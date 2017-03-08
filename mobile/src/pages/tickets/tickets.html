@@ -14,31 +14,32 @@
 </ion-header>
 
 <ion-content fullscreen="true">
+  <ion-refresher (ionRefresh)="onRefresh($event)" enabled="{{!isLocal && !loading}}">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Glisser vers le bas pour recharger"
+      refreshingSpinner="circles"
+      refreshingText="En cours de chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div padding class="message" *ngIf="message">
+    <label class="directive">{{message}}</label>
+  </div>
+
   <ion-list>
-    <ion-item (click)="goToQRCode()">
-      <ion-avatar item-left (click)="showPhotoOriginalSize($event)">
-        <img src="../../assets/img/shows/borgeous.jpg">
+    <ion-item *ngFor="let t of (tickets | upcomingTickets:isLocal)" class="full-border-bottom" (click)="goToQRCode(t)">
+      <ion-avatar item-left maximizable *ngIf="t.poster">
+        <img src="{{t.poster}}">
       </ion-avatar>
-      <h1>Borgeous</h1>
-      <h2>Borgeous</h2>
-      <p>24.00 $</p>
-      <p>2017-02-18 22h00</p>
-      <p>New City Gas</p>
-      <p>950 Rue Ottawa, Montréal, QC H3C 1S4<p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="../../assets/img/shows/luzia.jpg">
-      </ion-avatar>
-      <h1>Luzia</h1>
-      <h2>Cirque du Soleil</h2>
-      <p>65.00 $</p>
-      <p>2017-06-26 21h00</p>
-      <p>Grand Chapiteau</p>
-      <p>Quai Jacques-Cartier, rue de la Commune <br />Est, Montréal, QC H2Y 1J1</p>
+      <h2>{{t.showName}}</h2>
+      <p>{{t.artistName}}</p>
+      <!--<p>{{t.prix}} $</p>-->
+      <p>{{t.datetime}}</p>
+      <p>{{t.location}}</p>
+      <p>{{t.address}}<p>
     </ion-item>
   </ion-list>
-  
 </ion-content>
 
 <ion-footer>

@@ -1,6 +1,8 @@
 import { TicketsPage } from './../tickets/tickets';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AuthController } from './../../providers/auth-controller';
+import { HttpHelper } from './../../providers/http-helper';
 
 /*
   Generated class for the Authentication page.
@@ -14,11 +16,29 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class AuthenticationPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
+  private username: string;
+  private password: string;
+  private error: string;
 
-  // navigation for prototype (go to TicketsPage)
-  goToTickets() {
-    this.navCtrl.setRoot(TicketsPage, { 'isLocal': false });
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController, public helper: HttpHelper) {
+    this.error = navParams.get('error');
+  }
+
+  login() {
+    this.authCtrl.postLogin({
+      'username': this.username,
+      'password': this.password
+    })
+      .then(user => {
+        this.navCtrl.setRoot(TicketsPage);
+      })
+      .catch(err => {
+        if (err.status == 0) { // api unavailable
+          this.error = 'Le serveur n\'est pas disponible';
+        } else if (err._body.message) {
+          this.error = err._body.message;
+        }
+      });
   }
 
 }

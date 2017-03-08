@@ -14,30 +14,27 @@
 </ion-header>
 
 <ion-content fullscreen="true">
+  <ion-refresher (ionRefresh)="onRefresh($event)" enabled="{{!loading}}">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Glisser vers le bas pour recharger"
+      refreshingSpinner="circles"
+      refreshingText="En cours de chargement...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <div padding class="message" *ngIf="message">
+    <label class="directive">{{message}}</label>
+  </div>
+
   <ion-list>
-    <ion-item (click)="goToShows()">
-      <ion-avatar item-left>
-        <img src="../../assets/img/friends/ben.png">
+    <ion-item *ngFor="let f of friends" (click)="goToShows(f)" class="full-border-bottom">
+      <ion-avatar item-left maximizable>
+        <img src="{{f.photo}}">
       </ion-avatar>
-      <h1>Ben Smith</h1>
-      <p>ben.smith@gmail.com</p>
-      <p>Québec, QC</p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="../../assets/img/friends/max.png">
-      </ion-avatar>
-      <h1>Max Anderson</h1>
-      <p>max.anderson@gmail.com</p>
-      <p>Montréal, QC</p>
-    </ion-item>
-    <ion-item>
-      <ion-avatar item-left>
-        <img src="../../assets/img/friends/mike.png">
-      </ion-avatar>
-      <h1>Mike Watson</h1>
-      <p>mike.watson@gmail.com</p>
-      <p>Laval, QC</p>
+      <h2>{{f.fullname}}</h2>
+      <p>{{f.email}}</p>
+      <p>{{f.address}}</p>
     </ion-item>
   </ion-list>
 </ion-content>

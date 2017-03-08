@@ -5,6 +5,6 @@
   for more info on Angular 2 Components.
 -->
 
-<ion-toolbar class="banner">
-  <img src="../../assets/img/ad banner.jpg" />
+<ion-toolbar *ngIf="!isProVersion">
+  <img src="{{src}}" />
 </ion-toolbar>

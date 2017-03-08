@@ -14,20 +14,19 @@
   <ion-list>
     <ion-item>
       <ion-label stacked>Nom d'utilisateur</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input [(ngModel)]="username" type="text"></ion-input>
     </ion-item>
-
     <ion-item>
       <ion-label stacked>Mot de passe</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input [(ngModel)]="password" type="password"></ion-input>
     </ion-item>
-
-    <div padding *ngIf="error">
-      <label class="error">{{error}}</label>
-    </div>
-
-    <div class="bottom-block-button">
-      <button ion-button class="disable-hover button button-md button-default button-default-md button-block button-block-md button-md-primary" (click)="goToTickets()">S'authentifier</button>
-    </div>
+    <ion-item>
+      <div *ngIf="error">
+        <label class="error">{{error}}</label>
+      </div>
+    </ion-item>
   </ion-list>
+  <div class="bottom-block-button">
+    <button ion-button class="disable-hover button button-md button-default button-default-md button-block button-block-md button-md-primary" (click)="login()">S'authentifier</button>
+  </div>
 </ion-content>

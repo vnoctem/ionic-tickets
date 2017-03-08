@@ -2,15 +2,15 @@
   <ion-header>
     <ion-toolbar>
       <div class="profile">
-        <img src="../../assets/img/friends/adam.jpg" />
-        <label>Adam Fournier</label>
+        <img src="{{photo}}" />
+        <label>{{fullname}}</label>
       </div>
     </ion-toolbar>
   </ion-header>
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of pages" separator="{{p.separator}}" (click)="openPage(p)">
         <ion-icon name="{{p.icon}}"></ion-icon>
         {{p.title}}
       </button>

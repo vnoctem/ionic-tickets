@@ -1,4 +1,8 @@
 page-pro-version {
+    .list-md .item-block.no-border .item-inner {
+        border: 0px;
+    }
+
     .label-price {
         font-size: 3em;
         color: #df5138;
@@ -6,7 +10,7 @@ page-pro-version {
         font-weight: bold;
     }
 
-    .message {
+    .main-panel {
         background-color: #ececec;
 
         h3 {
@@ -19,7 +23,9 @@ page-pro-version {
        margin-top: 20px;
 
        & > .label {
-           margin-top: 11px;
+           margin: 0px;
+           padding-top: 8px;
+           padding-bottom: 8px;
        }
 
        ion-select {
