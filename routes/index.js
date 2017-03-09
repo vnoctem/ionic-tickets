@@ -10,7 +10,7 @@ var secret = require('../config/secret');
 router.post('/login', function (req, res, next) {
     if (!req.body.password || !req.body.username) {
         // Bad request
-        res.status(400).json({ 'message': 'Le nom d\'utilisateur ou Le mot de passe est invalide' });
+        res.status(400).json({ 'message': 'Le nom d\'utilisateur ou le mot de passe est invalide' });
         return;
     }
 
