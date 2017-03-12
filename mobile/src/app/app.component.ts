@@ -2,8 +2,8 @@ import { ProVersionPage } from './../pages/pro-version/pro-version';
 import { FriendsPage } from './../pages/friends/friends';
 import { TicketsPage } from './../pages/tickets/tickets';
 import { AuthenticationPage } from './../pages/authentication/authentication';
-import { Component, ViewChild, OnDestroy } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Component, ViewChild, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar, Splashscreen } from 'ionic-native';
 import { AuthController } from './../providers/auth-controller';
 import { SharedService } from './../providers/shared-service';
@@ -16,6 +16,18 @@ export class MenuItem {
   component: any
   icon: string
   separator: boolean
+  active: boolean
+}
+
+@Pipe({
+  name: 'activeLinks',
+  pure: false // also need to detect property's changes
+})
+export class ActiveLinksPipe implements PipeTransform {
+  transform(links: any[]) {
+    // filter items array, items which match and return true will be kept, false will be filtered out
+    return links.filter(link => link.active);
+  }
 }
 
 @Component({
@@ -25,7 +37,11 @@ export class MyApp implements OnDestroy {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: any;
-  pages: Array<MenuItem>;
+  pages: Array<MenuItem> = [
+    { title: 'Billets', component: TicketsPage, icon: 'paper', separator: false, active: true },
+    { title: 'Amis', component: FriendsPage, icon: 'person', separator: false, active: true },
+    { title: 'Version Pro', component: ProVersionPage, icon: 'cash', separator: true, active: true }
+  ];
   private fullname: string;
   private photo: string;
 
@@ -40,19 +56,14 @@ export class MyApp implements OnDestroy {
   // so we need to make use of a boolean
   private isLocal: boolean = false;
 
-  // keep the original list so that we can restore it when the user is back from offline
-  // must be constant
-  private menuLinks: Array<MenuItem> = [
-    { title: 'Billets', component: TicketsPage, icon: 'paper', separator: false },
-    { title: 'Amis', component: FriendsPage, icon: 'person', separator: false },
-    { title: 'Version Pro', component: ProVersionPage, icon: 'cash', separator: true }
-  ];
+  private restoreLinks() {
+    for (let i = 0; i < this.pages.length; i++) {
+      this.pages[i].active = true;
+    }
+  }
 
-  constructor(public platform: Platform, public authCtrl: AuthController, public sharedService: SharedService, public interService: InternetService, public helper: HttpHelper) {
+  constructor(public platform: Platform, public menuCtrl: MenuController, public authCtrl: AuthController, public sharedService: SharedService, public interService: InternetService, public helper: HttpHelper) {
     this.initializeApp();
-
-    // initialize the menu
-    this.pages = this.menuLinks;
   }
 
   initializeApp() {
@@ -74,7 +85,7 @@ export class MyApp implements OnDestroy {
           this.updateProfile(this.authCtrl.getCurrentUser());
           if (this.authCtrl.getCurrentUser().proVersion) {
             // remove pro version menu link since it's already a pro version
-            this.pages.pop();
+            this.pages[2].active = false;
           }
         } else {
           this.rootPage = AuthenticationPage;
@@ -83,7 +94,7 @@ export class MyApp implements OnDestroy {
           this.ProSubscription = this.sharedService.getProSubject()
             .subscribe(() => {
               // update menu links
-              this.pages.pop();
+              this.pages[2].active = false;
             });
           this.hasSubscription = true;
         }
@@ -97,6 +108,7 @@ export class MyApp implements OnDestroy {
     // watch network for a disconnect
     this.disconnectSubscription = this.interService.GetOnDisconnect().subscribe(() => {
       if (!this.isLocal) {
+        this.menuCtrl.close();
         this.helper.showToast('Connexion perdue');
         this.nav.setRoot(TicketsPage);
         this.isLocal = true;
@@ -118,7 +130,7 @@ export class MyApp implements OnDestroy {
           if (this.isLocal) {
             this.helper.showToast('Connexion rétablie');
             // restore menu links
-            this.pages = this.menuLinks;
+            this.restoreLinks();
             this.isLocal = false;
             if (this.authCtrl.hasBeenAuthenticated()) {
               // reload the user saved in local storage
@@ -126,7 +138,7 @@ export class MyApp implements OnDestroy {
               this.updateProfile(this.authCtrl.getCurrentUser());
               if (this.authCtrl.getCurrentUser().proVersion) {
                 // remove pro version menu link since it's already a pro version
-                this.pages.pop();
+                this.pages[2].active = false;
               }
               // need to be the last line so that all code could be executed
               this.nav.setRoot(TicketsPage);
@@ -136,7 +148,7 @@ export class MyApp implements OnDestroy {
               this.ProSubscription = this.sharedService.getProSubject()
                 .subscribe(() => {
                   // update menu links
-                  this.pages.pop();
+                  this.pages[2].active = false;
                 });
               this.hasSubscription = true;
               this.nav.setRoot(AuthenticationPage);

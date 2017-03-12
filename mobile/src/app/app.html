@@ -1,4 +1,4 @@
-<ion-menu [content]="content">
+<ion-menu [content]="content" enabled="{{!isLocal}}">
   <ion-header>
     <ion-toolbar>
       <div class="profile">
@@ -10,7 +10,7 @@
 
   <ion-content>
     <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" separator="{{p.separator}}" (click)="openPage(p)">
+      <button menuClose ion-item *ngFor="let p of (pages | activeLinks)" separator="{{p.separator}}" (click)="openPage(p)">
         <ion-icon name="{{p.icon}}"></ion-icon>
         {{p.title}}
       </button>

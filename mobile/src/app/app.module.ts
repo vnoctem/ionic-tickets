@@ -7,7 +7,7 @@ import { AuthenticationPage } from './../pages/authentication/authentication';
 import { AdBannerComponent } from './../components/ad-banner/ad-banner'
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { MyApp } from './app.component';
+import { MyApp, ActiveLinksPipe } from './app.component';
 import { Maximizable } from './../components/maximizable/maximizable';
 import { Separator } from './../components/separator/separator';
 import { AuthController } from './../providers/auth-controller';
@@ -35,7 +35,8 @@ import { QRCodeModule } from 'angular2-qrcode';
     AdBannerComponent,
     Maximizable,
     Separator,
-    UpcomingTicketsPipe
+    UpcomingTicketsPipe,
+    ActiveLinksPipe
   ],
   imports: [
     QRCodeModule,
