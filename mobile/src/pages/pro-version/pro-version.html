@@ -47,7 +47,12 @@
       </ion-item>
     </ion-list>
   </div>
-  <div class="bottom-block-button">
-    <button ion-button class="disable-hover button button-md button-default button-default-md button-block button-block-md button-md-primary" (click)="confirmPayment()">Confirmer le paiement</button>
-  </div>
+  <!-- Empty div preventing Ionic from adding weird styles -->
+  <div></div>
 </ion-content>
+
+<ion-footer class="full-width-action-button">
+  <ion-toolbar>
+    <button ion-button class="button button-block button-block-md button-md-primary" (click)="confirmPayment()">Confirmer le paiement</button>
+  </ion-toolbar>
+</ion-footer>

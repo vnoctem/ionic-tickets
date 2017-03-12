@@ -15,7 +15,7 @@ module.exports = function (req, res, next) {
         // verifies and checks expiration
         jwt.verify(token, secret.key, function (err, decoded) {
             if (err) {
-                res.status(400).json({ 'message': 'Votre session a expirée', 'redirect': true });
+                res.status(400).json({ 'message': 'Votre session a expiré', 'redirect': true });
             } else {
                 // if everything is good, save to request for use in other routes
                 req.user = decoded;
