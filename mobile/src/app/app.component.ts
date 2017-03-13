@@ -45,7 +45,8 @@ export class MyApp implements OnDestroy {
   private fullname: string;
   private photo: string;
 
-  private hasSubscription: boolean = false;
+  private hasProSubscription: boolean = false;
+  private hasAuthSubscription: boolean = false;
 
   private AuthSubscription: Subscription;
   private ProSubscription: Subscription;
@@ -96,7 +97,7 @@ export class MyApp implements OnDestroy {
               // update menu links
               this.pages[2].active = false;
             });
-          this.hasSubscription = true;
+          this.hasAuthSubscription = this.hasProSubscription = true;
         }
       }
     });
@@ -112,10 +113,13 @@ export class MyApp implements OnDestroy {
         this.helper.showToast('Connexion perdue');
         this.nav.setRoot(TicketsPage);
         this.isLocal = true;
-        if (this.hasSubscription) {
+        if (this.hasAuthSubscription) {
           this.AuthSubscription.unsubscribe();
+          this.hasAuthSubscription = false;
+        }
+        if (this.hasProSubscription) {
           this.ProSubscription.unsubscribe();
-          this.hasSubscription = false;
+          this.hasProSubscription = false;
         }
       }
     });
@@ -139,6 +143,13 @@ export class MyApp implements OnDestroy {
               if (this.authCtrl.getCurrentUser().proVersion) {
                 // remove pro version menu link since it's already a pro version
                 this.pages[2].active = false;
+              } else {
+                this.ProSubscription = this.sharedService.getProSubject()
+                .subscribe(() => {
+                  // update menu links
+                  this.pages[2].active = false;
+                });
+                this.hasProSubscription = true;
               }
               // need to be the last line so that all code could be executed
               this.nav.setRoot(TicketsPage);
@@ -150,7 +161,7 @@ export class MyApp implements OnDestroy {
                   // update menu links
                   this.pages[2].active = false;
                 });
-              this.hasSubscription = true;
+              this.hasAuthSubscription = this.hasProSubscription = true;
               this.nav.setRoot(AuthenticationPage);
             }
           }
@@ -172,9 +183,11 @@ export class MyApp implements OnDestroy {
 
   public ngOnDestroy() {
     // unsubscribe to ensure no memory leaks
-    if (this.hasSubscription) {
+    if (this.hasAuthSubscription) {
       this.AuthSubscription.unsubscribe();
-      this.ProSubscription.unsubscribe();
+    }
+    if (this.hasProSubscription) {
+      this.ProSubscription.unsubscribe();      
     }
     this.disconnectSubscription.unsubscribe();
     this.connectSubscription.unsubscribe();
