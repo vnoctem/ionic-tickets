@@ -4,7 +4,6 @@ import { ProVersionController } from './../../providers/pro-version-controller'
 import { AuthController } from './../../providers/auth-controller';
 import { TicketsPage } from './../../pages/tickets/tickets';
 import { HttpHelper } from './../../providers/http-helper';
-import { AuthenticationPage } from './../authentication/authentication';
 
 /*
   Generated class for the ProVersion page.
@@ -31,7 +30,7 @@ export class ProVersionPage {
     // Populate years and months
     for (let i = 1; i <= 12; i++) {
       let month = {
-        "value": i,
+        "value": i < 10 ? '0' + i.toString() : i.toString(),
         "text": i < 10 ? '0' + i.toString() : i.toString()
       };
       this.months.push(month);
@@ -50,21 +49,20 @@ export class ProVersionPage {
   public confirmPayment() {
     let expiryDate: string = '';
     if (this.expiryYear != null) {
-      expiryDate = this.expiryMonth + this.expiryYear.toString().substr(2, 4);
+      expiryDate = this.expiryMonth.toString() + this.expiryYear.toString().substr(2, 2);
     }
 
     let creditCard = {
+      'number': this.cardNumber.toString(),
       'holder': this.cardHolder,
-      'number': this.cardNumber,
-      'expiryDate': expiryDate,
-      'cvv': this.cardCVV
+      'expiryDate': expiryDate.toString(),
+      'cvv': this.cardCVV.toString()
     };
     this.proCtrl.postBuy(creditCard)
       .then(res => {
-        alert('Res : ' + res);
         this.helper.showToast('L\'achat a été effectué avec succès!');
-        this.proCtrl.buyProVersion();
-        this.navCtrl.setRoot(TicketsPage);
+        this.proCtrl.buyProVersion(); // Disable for testing payment API
+        this.navCtrl.setRoot(TicketsPage); // Disable for testing payment API
       })
       .catch(err => {
         this.manageErrors(err);
@@ -77,10 +75,12 @@ export class ProVersionPage {
       this.error = 'Le serveur n\'est pas disponible.';
     } else if (err.status == 401) { // **Should not happen** : Invalid API key
       this.error = 'Clé API invalide.';
+    } else if (err.status == 404) { // ** Should not happen** : Transaction not found
+      this.error = 'Transaction non trouvée.'
     } else if (err.status == 500) { // **Should not happen*: Internal server error
       this.error = 'Erreur interne du serveur.';
     } else { // An unknown error happened
-      this.error = 'Une erreur inconnue est survenue. ' + JSON.stringify(err);
+      this.error = 'Une erreur inconnue est survenue.';
     }
 
     /*if (err.message) {

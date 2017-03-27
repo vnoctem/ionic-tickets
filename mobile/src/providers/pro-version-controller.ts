@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 import { AppSettings } from './app-settings';
@@ -26,8 +26,8 @@ export class ProVersionController {
   }
 
   public postBuy(creditCard: any) {
-    return this.http.post(
-      'https://gti525-passerelle.herokuapp.com/api/transaction/pre-auth/', // Preauthorization of the transaction
+    return this.http.post( // Preauthorization of the transaction
+      `${this.paymentApiUrl}/transaction/pre-auth`, 
       {
         "api_key": "58d691fb95d6df00112624c4", // API key from https://gti525-passerelle.herokuapp.com
         "creditcard":
@@ -44,8 +44,20 @@ export class ProVersionController {
       .map(res => res.json())
       .toPromise()
       .then(res => {
+        return this.http.post( // Proceed to the transaction
+          `${this.paymentApiUrl}/transactions/complete`,
+          {
+            "api_key": "58d691fb95d6df00112624c4", //API key from https://gti525-passerelle.herokuapp.com
+            "transaction_id": res.transaction_id,
+            "status": "complete"
+          }
+        )
+        .map(res => res.json())
+        .toPromise();
+      })
+      .then(res => {
         // Notify all subscribers
-        //this.sharedService.notifyProSubscribers();
+        this.sharedService.notifyProSubscribers();
         return Promise.resolve();
       })
       .catch(err => this.helper.convertToJSON(err));

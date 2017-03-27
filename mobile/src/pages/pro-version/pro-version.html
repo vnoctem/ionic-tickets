@@ -37,10 +37,10 @@
       </ion-item>
       <ion-item class="date no-border">
         <ion-label stacked>Date d'expiration</ion-label>
-        <ion-select class="month-select" [(ngModel)]="expiryMonth" cancelText="Annuler" placeholder="Mois">
+        <ion-select class="month-select" [(ngModel)]="expiryMonth" cancelText="Annuler" placeholder="Mois" [selectOptions]="{title: 'Mois'}">
           <ion-option value ="{{item.value}}" *ngFor="let item of months">{{item.text}}</ion-option>
         </ion-select>
-        <ion-select [(ngModel)]="expiryYear" cancelText="Annuler" placeholder="Année">
+        <ion-select [(ngModel)]="expiryYear" cancelText="Annuler" placeholder="Année" [selectOptions]="{title: 'Année'}">
           <ion-option *ngFor="let item of years">{{item.text}}</ion-option>
         </ion-select>
       </ion-item>
