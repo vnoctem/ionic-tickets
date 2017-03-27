@@ -25,18 +25,22 @@
     <ion-list>
       <ion-item>
         <ion-label stacked>Nom sur la carte</ion-label>
-        <ion-input [(ngModel)]="cardName" type="text"></ion-input>
+        <ion-input [(ngModel)]="cardHolder" type="text"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label stacked>Numéro de la carte</ion-label>
+        <ion-label stacked>Numéro de carte de crédit</ion-label>
         <ion-input [(ngModel)]="cardNumber" type="number"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>CVV</ion-label>
+        <ion-input [(ngModel)]="cardCVV" type="number"></ion-input>
       </ion-item>
       <ion-item class="date no-border">
         <ion-label stacked>Date d'expiration</ion-label>
-        <ion-select class="month-select" [(ngModel)]="expirationMonth" cancelText="Annuler" placeholder="Mois">
+        <ion-select class="month-select" [(ngModel)]="expiryMonth" cancelText="Annuler" placeholder="Mois">
           <ion-option value ="{{item.value}}" *ngFor="let item of months">{{item.text}}</ion-option>
         </ion-select>
-        <ion-select [(ngModel)]="expirationYear" cancelText="Annuler" placeholder="Année">
+        <ion-select [(ngModel)]="expiryYear" cancelText="Annuler" placeholder="Année">
           <ion-option *ngFor="let item of years">{{item.text}}</ion-option>
         </ion-select>
       </ion-item>

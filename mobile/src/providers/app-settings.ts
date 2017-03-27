@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 
 const CONFIG = {
   socialApiUrl: 'https://morning-sea-98821.herokuapp.com/api',
-  paymentApiUrl: 'https://morning-sea-98821.herokuapp.com/api',
+  paymentApiUrl: 'https://gti525-passerelle.herokuapp.com/api',
   adApiUrl: 'https://morning-sea-98821.herokuapp.com/api'
 }
 

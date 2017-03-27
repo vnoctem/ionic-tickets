@@ -25,19 +25,27 @@ export class ProVersionController {
     this.authCtrl.updateProVersion();
   }
 
-  public postBuy(cardInfo: any, token: string) {
-    let headers = new Headers();
-    headers.append('x-access-token', token);
+  public postBuy(creditCard: any) {
     return this.http.post(
-      this.paymentApiUrl + '/pro_version/buy',
-      cardInfo,
-      new RequestOptions({ 'headers': headers })
+      'https://gti525-passerelle.herokuapp.com/api/transaction/pre-auth/', // Preauthorization of the transaction
+      {
+        "api_key": "58d691fb95d6df00112624c4", // API key from https://gti525-passerelle.herokuapp.com
+        "creditcard":
+        {
+          "cardnumber": creditCard.number,
+          "cardholder": creditCard.holder,
+          "expiry_date": creditCard.expiryDate,
+          "cvv": creditCard.cvv
+        },
+        "montant": "2.00",
+        "description": "Achat de la version Pro sur application mobile de billets."
+      }
     )
       .map(res => res.json())
       .toPromise()
       .then(res => {
-        // notify all subscribers
-        this.sharedService.notifyProSubscribers();
+        // Notify all subscribers
+        //this.sharedService.notifyProSubscribers();
         return Promise.resolve();
       })
       .catch(err => this.helper.convertToJSON(err));
