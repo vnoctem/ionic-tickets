@@ -60,7 +60,7 @@ export class ProVersionPage {
     };
     this.proCtrl.postBuy(creditCard)
       .then(res => {
-        this.helper.showToast('L\'achat a été effectué avec succès!');
+        this.helper.showToast('L\'achat a été effectué avec succès');
         this.proCtrl.buyProVersion();
         this.navCtrl.setRoot(TicketsPage);
       })
@@ -70,7 +70,6 @@ export class ProVersionPage {
   }
 
   private manageErrors(err: any) {
-    alert(JSON.stringify(err));
     if (err.status == 0) { // API is unavailable
       this.error = 'Le serveur n\'est pas disponible.';
     } else if (err.status == 401) { // **Should not happen** : Invalid API key
@@ -82,12 +81,6 @@ export class ProVersionPage {
     } else { // An unknown error happened
       this.error = 'Une erreur inconnue est survenue.';
     }
-
-    /*if (err.message) {
-      this.error = err.message;
-    } else if (err.source._body.message) {
-      this.error = err.source._body.message;
-    }*/
   }
 
 }
