@@ -17,6 +17,7 @@ import { HttpHelper } from './http-helper';
 export class ProVersionController {
 
   private paymentApiUrl: string = this.appSettings.getPaymentApiUrl();
+  private paymentApiKey: string = this.appSettings.getPaymentApiKey();
 
   constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public sharedService: SharedService, public helper: HttpHelper) {
   }
@@ -29,7 +30,7 @@ export class ProVersionController {
     return this.http.post( // Preauthorization of the transaction
       `${this.paymentApiUrl}/transaction/pre-auth`, 
       {
-        "api_key": "58d691fb95d6df00112624c4", // API key from https://gti525-passerelle.herokuapp.com
+        "api_key": this.paymentApiKey,
         "creditcard":
         {
           "cardnumber": creditCard.number,
@@ -47,7 +48,7 @@ export class ProVersionController {
         return this.http.post( // Proceed to the transaction
           `${this.paymentApiUrl}/transactions/complete`,
           {
-            "api_key": "58d691fb95d6df00112624c4", //API key from https://gti525-passerelle.herokuapp.com
+            "api_key": this.paymentApiKey,
             "transaction_id": res.transaction_id,
             "status": "complete"
           }

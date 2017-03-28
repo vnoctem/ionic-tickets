@@ -72,7 +72,7 @@ export class ProVersionPage {
       this.error = 'Le serveur n\'est pas disponible.';
     } else if (err.status == 400) { // Bad request : the parameters are not valid
       this.error = 'Les informations saisies ne sont pas valides.';
-    } else if (err.status == 401) { // **Should not happen** : Invalid API key
+    } else if (err.status == 401 || err.status == 403) { // **Should not happen** : Invalid API key (Unauthorized || Forbidden)
       this.error = 'Clé API invalide.';
     } else if (err.status == 404) { // ** Should not happen** : Transaction not found
       this.error = 'Transaction non trouvée.'
