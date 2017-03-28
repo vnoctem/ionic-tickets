@@ -19,11 +19,11 @@ export class ProVersionPage {
 
   private months = [];
   private years = [];
-  private expiryMonth: number;
-  private expiryYear: number;
-  private cardNumber: number;
-  private cardHolder: string;
-  private cardCVV: number;
+  private expiryMonth: string = '';
+  private expiryYear: string = '';
+  private cardNumber: string = '';
+  private cardHolder: string = '';
+  private cardCVV: string = '';
   private error: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public proCtrl: ProVersionController, public authCtrl: AuthController, public helper: HttpHelper) {
@@ -48,15 +48,13 @@ export class ProVersionPage {
   // Carry out payment to buy the version without ad
   public confirmPayment() {
     let expiryDate: string = '';
-    if (this.expiryYear != null) {
-      expiryDate = this.expiryMonth.toString() + this.expiryYear.toString().substr(2, 2);
-    }
+    expiryDate = this.expiryMonth + this.expiryYear.substr(2, 2);
 
     let creditCard = {
-      'number': this.cardNumber.toString(),
+      'number': this.cardNumber,
       'holder': this.cardHolder,
-      'expiryDate': expiryDate.toString(),
-      'cvv': this.cardCVV.toString()
+      'expiryDate': expiryDate,
+      'cvv': this.cardCVV
     };
     this.proCtrl.postBuy(creditCard)
       .then(res => {
@@ -70,8 +68,10 @@ export class ProVersionPage {
   }
 
   private manageErrors(err: any) {
-    if (err.status == 0) { // API is unavailable
+    if (err.status == 0 || err.status == 503) { // API is unavailable
       this.error = 'Le serveur n\'est pas disponible.';
+    } else if (err.status == 400) { // Bad request : the parameters are not valid
+      this.error = 'Les informations saisies ne sont pas valides.';
     } else if (err.status == 401) { // **Should not happen** : Invalid API key
       this.error = 'Clé API invalide.';
     } else if (err.status == 404) { // ** Should not happen** : Transaction not found
