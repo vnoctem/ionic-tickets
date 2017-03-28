@@ -61,8 +61,8 @@ export class ProVersionPage {
     this.proCtrl.postBuy(creditCard)
       .then(res => {
         this.helper.showToast('L\'achat a été effectué avec succès!');
-        this.proCtrl.buyProVersion(); // Disable for testing payment API
-        this.navCtrl.setRoot(TicketsPage); // Disable for testing payment API
+        this.proCtrl.buyProVersion();
+        this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
         this.manageErrors(err);
