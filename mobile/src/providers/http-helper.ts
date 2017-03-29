@@ -36,7 +36,7 @@ export class HttpHelper {
   public onHttpError(err: any) {
     let message = '';
     let redirect = false;
-    if (err.status == 0) { // api unavailable
+    if (err.status == 0) { // API unavailable
       message = 'Le serveur n\'est pas disponible';
     } else if (err._body.redirect) { // invalid token
       message = err._body.message;
