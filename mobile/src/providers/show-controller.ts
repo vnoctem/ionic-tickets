@@ -21,14 +21,17 @@ export class ShowController {
 
   public getShows(friendId: number, token: string) {
     let headers = new Headers();
-    headers.append('x-access-token', token);
+    headers.append('Authorization', `Bearer ${token}`); // Add token in header
+    headers.append('Accept', 'application/json'); // Response must be JSON, if not 401 is returned
+
+    // Get shows of a specific friend
     return this.http.get(
-      `${this.socialApiUrl}/friends/${friendId}/shows`,
+      `${this.socialApiUrl}/user/${friendId}/tickets`,
       new RequestOptions({ 'headers': headers })
     )
       .map(res => res.json())
       .toPromise()
-      .then(res => res.shows)
+      .then(res => res)
       .catch(err => this.helper.convertToJSON(err));
   }
 

@@ -39,11 +39,12 @@ export class ShowsPage {
       .catch(err => {
         this.message = '';
         this.loading = false;
-        return this.helper.onHttpError(err);
-      })
-      .catch(err => {
         this.manageErrors(err);
+        //return this.helper.onHttpError(err);
       });
+    /*.catch(err => {
+      this.manageErrors(err);
+    });*/
   }
 
   public onRefresh(refresher) {
@@ -52,19 +53,22 @@ export class ShowsPage {
       this.authCtrl.getToken()
     )
       .then(shows => {
+        this.message = '';
         this.shows = this.ensureListNotEmpty(shows);
         refresher.complete();
       })
       .catch(err => {
-        return this.helper.onHttpError(err);
-        // no need to call refresher since it will be destroyed when redirecting
-      })
-      .catch(err => {
-        if (!err.redirect) {
-          refresher.cancel();
-        }
         this.manageErrors(err);
+        refresher.cancel();
+        //return this.helper.onHttpError(err);
+        // no need to call refresher since it will be destroyed when redirecting
       });
+    /*.catch(err => {
+      if (!err.redirect) {
+        refresher.cancel();
+      }
+      this.manageErrors(err);
+    });*/
   }
 
   private ensureListNotEmpty(list: any) {
@@ -76,13 +80,23 @@ export class ShowsPage {
   }
 
   private manageErrors(err: any) {
-    if (err.redirect) {
+    if (err.status == 0) { // API is unavailable
+      this.message = 'Le serveur n\'est pas disponible.'
+    } else if (err.status == 401) { // Unauthorized : Probably because the token has expired or is invalid
+      this.navCtrl.setRoot(AuthenticationPage,
+        {
+          'error': 'Votre session a expiré.'
+        }
+      );
+    }
+
+    /*if (err.redirect) {
       this.navCtrl.setRoot(AuthenticationPage, {
         'error': err.message
       });
     } else if (err.message) {
       this.message = err.message;
-    }
+    }*/
   }
 
 }

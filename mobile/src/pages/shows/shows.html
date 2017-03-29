@@ -6,7 +6,7 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>Spectacles - {{friend.fullname}}</ion-title>
+    <ion-title>Spectacles - {{friend.first_name + ' ' + friend.last_name}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -27,13 +27,13 @@
   <ion-list>
     <ion-item *ngFor="let s of shows" class="full-border-bottom">
       <ion-avatar item-left maximizable>
-        <img src="{{s.poster}}">
+        <img src="{{s.image}}">
       </ion-avatar>
-      <h2>{{s.showName}}</h2>
-      <p>{{s.artistName}}</p>
-      <p>{{s.datetime}}</p>
-      <p>{{s.location}}</p>
-      <p>{{s.address}}<p>
+      <h2>{{s.event}}</h2>
+      <p>{{s.artist}}</p>
+      <p>{{s.date_event}}</p>
+      <p>{{s.venue}}</p>
+      <p>{{s.city}}<p>  
     </ion-item>
   </ion-list>
 </ion-content>

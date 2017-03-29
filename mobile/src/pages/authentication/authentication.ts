@@ -16,8 +16,8 @@ import { HttpHelper } from './../../providers/http-helper';
 })
 export class AuthenticationPage {
 
-  private username: string;
-  private password: string;
+  private username: string = '';
+  private password: string = '';
   private error: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public authCtrl: AuthController, public helper: HttpHelper) {
@@ -33,10 +33,15 @@ export class AuthenticationPage {
         this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
-        if (err.status == 0) { // api unavailable
-          this.error = 'Le serveur n\'est pas disponible';
-        } else if (err._body.message) {
-          this.error = err._body.message;
+        alert(err);
+        if (err.status == 0) { // API unavailable
+          this.error = 'Le serveur n\'est pas disponible.';
+        } else if (err.status == 400) { // Bad request : the parameters are invalid
+          this.error = 'Veuillez saisir votre nom d\'utilisateur et votre mot de passe.';
+        } else if (err.status == 401) { // Unauthorized
+          this.error = 'Le nom d\'utilisateur ou le mot de passe est invalide.';
+        } else {
+          this.error = 'Une erreur inconnue est survenue.';
         }
       });
   }

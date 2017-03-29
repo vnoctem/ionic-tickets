@@ -6,14 +6,14 @@
 -->
 <ion-header>
   <ion-navbar>
-    <ion-title>{{ticket.showName}}</ion-title>
+    <ion-title>{{ticket.event}}</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding fullscreen="true">
-  <ion-label>{{ticket.id}}</ion-label>
-  <ion-label>{{ticket.GUID}}</ion-label>
-  <qr-code [value]="ticket.GUID" [size]="250"></qr-code>
+  <ion-label class="overflow">{{ticket.ticket_id}}</ion-label>
+  <qr-code [value]="ticket.unique_id" [size]="250"></qr-code>
+  <ion-label class="overflow">{{ticket.unique_id}}</ion-label>
 </ion-content>
 
 <ion-footer>
