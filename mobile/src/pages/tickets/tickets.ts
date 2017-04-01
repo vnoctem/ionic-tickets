@@ -17,15 +17,15 @@ export class UpcomingTicketsPipe implements PipeTransform {
       return null;
 
     if (isLocal) {
-      // apply filter only on local tickets
-      // filter items array, items which match and return true will be kept, false will be filtered out
+      // Apply filter on local tickets to remove tickets in the past
       return tickets.filter(ticket => new Date(ticket.date_event) >= new Date());
     } else {
-      // api should return futur tickets
+      // Ticket provider should return upcoming tickets only
       return tickets;
     }
   }
 }
+
 
 /*
   Generated class for the Tickets page.
@@ -62,12 +62,9 @@ export class TicketsPage {
           this.manageErrors(err);
         }
       });
-    /*.catch(err => {
-      this.manageErrors(err);
-    });*/
   }
 
-  public onRefresh(refresher) {
+  public onRefresh(refresher: any) {
     this.ticketCtrl.getTickets(this.authCtrl.getToken())
       .then(tickets => {
         this.message = '';
@@ -75,15 +72,9 @@ export class TicketsPage {
         refresher.complete();
       })
       .catch(err => {
+        refresher.cancel();
         this.manageErrors(err);
-        refresher.cancel();
       });
-    /*.catch(err => {
-      if (!err.redirect) {
-        refresher.cancel();
-      }
-      this.manageErrors(err);
-    });*/
   }
 
   private ensureListNotEmpty(list: any) {
@@ -103,17 +94,12 @@ export class TicketsPage {
           'error': 'Votre session a expiré.'
         }
       );
+    } else {
+      this.message = 'Une erreur inconnu est survenue.';
     }
-    /*if (err.redirect) {
-      this.navCtrl.setRoot(AuthenticationPage, {
-        'error': err.message
-      });
-    } else if (err.message) {
-      this.message = err.message;
-    }*/
   }
 
-  public goToQRCode(ticket) {
+  public goToQRCode(ticket: any) {
     this.navCtrl.push(QrCodePage, { 'ticket': ticket, 'isLocal': this.isLocal });
   }
 

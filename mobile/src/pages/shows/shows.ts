@@ -40,11 +40,7 @@ export class ShowsPage {
         this.message = '';
         this.loading = false;
         this.manageErrors(err);
-        //return this.helper.onHttpError(err);
       });
-    /*.catch(err => {
-      this.manageErrors(err);
-    });*/
   }
 
   public onRefresh(refresher) {
@@ -58,17 +54,9 @@ export class ShowsPage {
         refresher.complete();
       })
       .catch(err => {
+         refresher.cancel();
         this.manageErrors(err);
-        refresher.cancel();
-        //return this.helper.onHttpError(err);
-        // no need to call refresher since it will be destroyed when redirecting
       });
-    /*.catch(err => {
-      if (!err.redirect) {
-        refresher.cancel();
-      }
-      this.manageErrors(err);
-    });*/
   }
 
   private ensureListNotEmpty(list: any) {
@@ -88,15 +76,9 @@ export class ShowsPage {
           'error': 'Votre session a expiré.'
         }
       );
+    } else {
+      this.message = 'Une erreur inconnu est survenue.';
     }
-
-    /*if (err.redirect) {
-      this.navCtrl.setRoot(AuthenticationPage, {
-        'error': err.message
-      });
-    } else if (err.message) {
-      this.message = err.message;
-    }*/
   }
 
 }

@@ -30,7 +30,7 @@
   <ion-list>
     <ion-item *ngFor="let t of (tickets | upcomingTickets:isLocal)" class="full-border-bottom" (click)="goToQRCode(t)">
       <ion-avatar item-left maximizable *ngIf="t.image">
-        <img src="{{t.image}}">
+        <img [src]="helper.displayImage(t.image)">
       </ion-avatar>
       <h2>{{t.event}}</h2>
       <p>{{t.artist}}</p>

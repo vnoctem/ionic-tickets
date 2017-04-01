@@ -2,7 +2,7 @@
   <ion-header>
     <ion-toolbar>
       <div class="profile">
-        <img src="{{photo}}" />
+        <img [src]="helper.displayImage(photo)" />
         <label>{{fullname}}</label>
       </div>
     </ion-toolbar>

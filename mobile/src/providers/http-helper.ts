@@ -44,4 +44,20 @@ export class HttpHelper {
     });
   }
 
+  // Return the good URL path for the image
+  public displayImage(image: string) {
+    let regexURL = new RegExp('^https?:?(\/\/)?.+$');
+    // Check if image is an URL
+    if (regexURL.test(image)) { // Image is an URL, return as it is
+      return image;
+    } else { // Image is not an URL, return path to image
+      return `https://gti525-social-network.herokuapp.com/${image}`
+    }
+  }
+
+  // Return date (handle undefined date)
+  public getTime(date: Date) {
+    return date != null ? date.getTime() : 0;
+  }
+
 }

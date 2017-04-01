@@ -48,11 +48,19 @@ export class TicketController {
       .map(res => res.json())
       .toPromise()
       .then(res => {
+        // Filter to get only upcoming tickets and sort by date
+        res = res
+          .filter(ticket => new Date(ticket.date_event) >= new Date())
+          .sort((ticketA: any, ticketB: any) => {
+            return this.helper.getTime(new Date(ticketA.date_event)) - this.helper.getTime(new Date(ticketB.date_event));
+          });
+
         let cloned = JSON.parse(JSON.stringify(res));
         // remove photo url in local storage
         for (let i = 0; i < cloned.length; i++) {
           cloned[i].image = '';
         }
+
         this.storService.saveObject(KEYS.tickets, cloned);
         return res;
       })
