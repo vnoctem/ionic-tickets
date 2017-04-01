@@ -36,18 +36,26 @@ $button-height: 70px;
 }
 
 .message {
+    @extend .overflow;
     text-align: center;
     margin-top: 10px;
     background: white;
 }
 
 .directive {
+    @extend .overflow;
     font-size: 1.2em;
     color: #999999;
     font-weight: bold;
 }
 
+.overflow {
+    white-space: normal;
+    overflow: visible;
+}
+
 .error {
+    @extend .overflow;
     color: red;
     white-space: normal;
     overflow: visible;

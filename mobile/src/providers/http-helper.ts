@@ -35,18 +35,29 @@ export class HttpHelper {
   // Manage commun errors
   public onHttpError(err: any) {
     let message = '';
-    let redirect = false;
     if (err.status == 0) { // API unavailable
       message = 'Le serveur n\'est pas disponible';
-    } else if (err._body.redirect) { // invalid token
-      message = err._body.message;
-      redirect = true;
     }
     return Promise.reject({
       'message': message,
-      'redirect': redirect,
       'source': err
     });
+  }
+
+  // Return the good URL path for the image
+  public displayImage(image: string) {
+    let regexURL = new RegExp('^https?:?(\/\/)?.+$');
+    // Check if image is an URL
+    if (regexURL.test(image)) { // Image is an URL, return as it is
+      return image;
+    } else { // Image is not an URL, return path to image
+      return `https://gti525-social-network.herokuapp.com/${image}`
+    }
+  }
+
+  // Return date (handle undefined date)
+  public getTime(date: Date) {
+    return date != null ? date.getTime() : 0;
   }
 
 }

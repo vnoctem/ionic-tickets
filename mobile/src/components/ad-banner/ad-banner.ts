@@ -25,8 +25,7 @@ export class AdBannerComponent {
         this.src = src;
       })
       .catch(err => {
-        // do nothing
-        // controller of the page should handle this
+        // Return nothing, controller of the page should handle this
       });
   }
 
