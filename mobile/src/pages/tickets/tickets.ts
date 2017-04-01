@@ -17,15 +17,15 @@ export class UpcomingTicketsPipe implements PipeTransform {
       return null;
 
     if (isLocal) {
-      // apply filter only on local tickets
-      // filter items array, items which match and return true will be kept, false will be filtered out
-      return tickets.filter(ticket => new Date(ticket.datetime) >= new Date());
+      // Apply filter on local tickets to remove tickets in the past
+      return tickets.filter(ticket => new Date(ticket.date_event) >= new Date());
     } else {
-      // api should return futur tickets
+      // Ticket provider should return upcoming tickets only
       return tickets;
     }
   }
 }
+
 
 /*
   Generated class for the Tickets page.
@@ -49,10 +49,7 @@ export class TicketsPage {
     this.message = 'En cours de chargement ...';
     this.loading = true;
 
-    ticketCtrl.getTickets(
-      authCtrl.getCurrentUser() ? authCtrl.getCurrentUser().id : -1,
-      authCtrl.getCurrentUser() ? authCtrl.getToken() : ''
-    )
+    ticketCtrl.getTickets(authCtrl.getCurrentUser() ? authCtrl.getToken() : '')
       .then(tickets => {
         this.message = '';
         this.loading = false;
@@ -62,31 +59,20 @@ export class TicketsPage {
         this.message = '';
         this.loading = false;
         if (!this.isLocal) {
-          return this.helper.onHttpError(err);
+          this.manageErrors(err);
         }
-      })
-      .catch(err => {
-        this.manageErrors(err);
       });
   }
 
-  public onRefresh(refresher) {
-    this.ticketCtrl.getTickets(
-      this.authCtrl.getCurrentUser().id,
-      this.authCtrl.getToken()
-    )
+  public onRefresh(refresher: any) {
+    this.ticketCtrl.getTickets(this.authCtrl.getToken())
       .then(tickets => {
+        this.message = '';
         this.tickets = this.ensureListNotEmpty(tickets);
         refresher.complete();
       })
       .catch(err => {
-        return this.helper.onHttpError(err);
-        // no need to call refresher since it will be destroyed when redirecting
-      })
-      .catch(err => {
-        if (!err.redirect) {
-          refresher.cancel();
-        }
+        refresher.cancel();
         this.manageErrors(err);
       });
   }
@@ -100,16 +86,20 @@ export class TicketsPage {
   }
 
   private manageErrors(err: any) {
-    if (err.redirect) {
-      this.navCtrl.setRoot(AuthenticationPage, {
-        'error': err.message
-      });
-    } else if (err.message) {
-      this.message = err.message;
+    if (err.status == 0) { // API is unavailable
+      this.message = 'Le serveur n\'est pas disponible.'
+    } else if (err.status == 401) { // Unauthorized : Probably because the token has expired or is invalid
+      this.navCtrl.setRoot(AuthenticationPage,
+        {
+          'error': 'Votre session a expiré.'
+        }
+      );
+    } else {
+      this.message = 'Une erreur inconnue est survenue.';
     }
   }
 
-  public goToQRCode(ticket) {
+  public goToQRCode(ticket: any) {
     this.navCtrl.push(QrCodePage, { 'ticket': ticket, 'isLocal': this.isLocal });
   }
 

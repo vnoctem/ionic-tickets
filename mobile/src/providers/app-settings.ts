@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 
 const CONFIG = {
-  socialApiUrl: 'https://morning-sea-98821.herokuapp.com/api',
-  paymentApiUrl: 'https://morning-sea-98821.herokuapp.com/api',
-  adApiUrl: 'https://morning-sea-98821.herokuapp.com/api'
+  socialBaseUrl: 'https://gti525-social-network.herokuapp.com',
+  socialApiUrl: 'https://gti525-social-network.herokuapp.com/api/v1',
+  socialApiTokenUrl: 'https://gti525-social-network.herokuapp.com/oauth/token',
+  socialApiClientId: '32',
+  socialApiClientSecret: '07Lj9JLSa9DiQKpOzY0fUY52uJOHFExrITGiKkJj',
+  paymentApiUrl: 'https://gti525-passerelle.herokuapp.com/api',
+  paymentApiKey: '58d691fb95d6df00112624c4' // API key from https://gti525-passerelle.herokuapp.com
 }
 
 /*
@@ -15,16 +19,32 @@ const CONFIG = {
 @Injectable()
 export class AppSettings {
 
+  public getSocialBaseUrl() {
+    return CONFIG.socialBaseUrl;
+  }
+
   public getSocialApiUrl() {
     return CONFIG.socialApiUrl;
+  }
+
+  public getSocialApiTokenUrl() {
+    return CONFIG.socialApiTokenUrl;
+  }
+
+  public getSocialApiClientId() {
+    return CONFIG.socialApiClientId;
+  }
+
+  public getSocialApiClientSecret() {
+    return CONFIG.socialApiClientSecret;
   }
 
   public getPaymentApiUrl() {
     return CONFIG.paymentApiUrl;
   }
 
-  public getAdApiUrl() {
-    return CONFIG.adApiUrl;
+  public getPaymentApiKey() {
+    return CONFIG.paymentApiKey;
   }
 
 }

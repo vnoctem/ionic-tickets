@@ -25,7 +25,7 @@ export class TicketController {
   constructor(public http: Http, public appSettings: AppSettings, public authCtrl: AuthController, public storService: StorageService, public helper: HttpHelper) {
   }
 
-  public getTickets(userId: number, token: string) {
+  public getTickets(token: string) {
     // If no internet connection, retrieve data from local storage
     if (this.authCtrl.isLocal()) {
       let localTickets = localStorage.getItem(KEYS.tickets);
@@ -37,21 +37,35 @@ export class TicketController {
     }
 
     let headers = new Headers();
-    headers.append('x-access-token', token);
+    headers.append('Authorization', `Bearer ${token}`); // Add token in header
+    headers.append('Accept', 'application/json'); // Response must be JSON, if not 401 is returned
+
+    // Get tickets
     return this.http.get(
-      `${this.socialApiUrl}/tickets/${userId}`,
+      `${this.socialApiUrl}/user/tickets`,
       new RequestOptions({ 'headers': headers })
     )
       .map(res => res.json())
       .toPromise()
       .then(res => {
-        let cloned = JSON.parse(JSON.stringify(res.tickets));
+        if (res == null) {
+          res = [];
+        } else {
+          // Filter to get only upcoming tickets and sort by date
+          res = res
+            .filter(ticket => new Date(ticket.date_event) >= new Date())
+            .sort((ticketA: any, ticketB: any) => {
+              return this.helper.getTime(new Date(ticketA.date_event)) - this.helper.getTime(new Date(ticketB.date_event));
+            });
+        }
+        let cloned = JSON.parse(JSON.stringify(res));
         // remove photo url in local storage
         for (let i = 0; i < cloned.length; i++) {
-          cloned[i].poster = '';
+          cloned[i].image = '';
         }
+
         this.storService.saveObject(KEYS.tickets, cloned);
-        return res.tickets;
+        return res;
       })
       .catch(err => this.helper.convertToJSON(err));
   }

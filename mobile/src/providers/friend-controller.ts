@@ -20,16 +20,25 @@ export class FriendController {
   constructor(public http: Http, public appSettings: AppSettings, public helper: HttpHelper) {
   }
 
-  public getFriends(userId: number, token: string) {
+  public getFriends(token: string) {
     let headers = new Headers();
-    headers.append('x-access-token', token);
+    headers.append('Authorization', `Bearer ${token}`); // Add token in header
+    headers.append('Accept', 'application/json'); // Response must be JSON, if not 401 is returned
+
+    // Get friends
     return this.http.get(
-      `${this.socialApiUrl}/friends/${userId}`,
+      `${this.socialApiUrl}/user/friends`,
       new RequestOptions({ 'headers': headers })
     )
       .map(res => res.json())
       .toPromise()
-      .then(res => res.friends)
+      .then(res => {
+        if (res == null) {
+          return [];
+        } else {
+          return res;
+        }
+      })
       .catch(err => this.helper.convertToJSON(err));
   }
 

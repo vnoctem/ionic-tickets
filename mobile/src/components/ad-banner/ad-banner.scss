@@ -12,10 +12,14 @@ ad-banner {
     .toolbar-content-md {
         height: $ad-banner-height;
         text-align: center;
-
-        img {
-            height: 100%;
-            width: auto;
+        
+        div {
+            height: $ad-banner-height;
+            
+            img {
+                height: 100%;
+                width: auto;
+            }
         }
     }
 }
