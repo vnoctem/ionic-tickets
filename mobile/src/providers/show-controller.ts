@@ -32,12 +32,16 @@ export class ShowController {
       .map(res => res.json())
       .toPromise()
       .then(res => {
-        // Filter to get only upcoming tickets and sort by date
-        return res
-          .filter(ticket => new Date(ticket.date_event) >= new Date())
-          .sort((ticketA: any, ticketB: any) => {
-            return this.helper.getTime(new Date(ticketA.date_event)) - this.helper.getTime(new Date(ticketB.date_event));
-          });
+        if (res == null) {
+          return [];
+        } else {
+          // Filter to get only upcoming tickets and sort by date
+          return res
+            .filter(ticket => new Date(ticket.date_event) >= new Date())
+            .sort((ticketA: any, ticketB: any) => {
+              return this.helper.getTime(new Date(ticketA.date_event)) - this.helper.getTime(new Date(ticketB.date_event));
+            });
+        }
       })
       .catch(err => this.helper.convertToJSON(err));
   }

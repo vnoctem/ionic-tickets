@@ -32,7 +32,13 @@ export class FriendController {
     )
       .map(res => res.json())
       .toPromise()
-      .then(res => res)
+      .then(res => {
+        if (res == null) {
+          return [];
+        } else {
+          return res;
+        }
+      })
       .catch(err => this.helper.convertToJSON(err));
   }
 

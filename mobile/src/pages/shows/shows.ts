@@ -77,7 +77,7 @@ export class ShowsPage {
         }
       );
     } else {
-      this.message = 'Une erreur inconnu est survenue.';
+      this.message = 'Une erreur inconnue est survenue.';
     }
   }
 
