@@ -35,7 +35,7 @@ export class HttpHelper {
   // Manage commun errors
   public onHttpError(err: any) {
     let message = '';
-    if (err.status == 0) { // api unavailable
+    if (err.status == 0) { // API unavailable
       message = 'Le serveur n\'est pas disponible';
     }
     return Promise.reject({

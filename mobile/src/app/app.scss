@@ -57,6 +57,8 @@ $button-height: 70px;
 .error {
     @extend .overflow;
     color: red;
+    white-space: normal;
+    overflow: visible;
 }
 
 .item-md {
