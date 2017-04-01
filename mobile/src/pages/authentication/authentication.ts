@@ -33,7 +33,6 @@ export class AuthenticationPage {
         this.navCtrl.setRoot(TicketsPage);
       })
       .catch(err => {
-        alert(err);
         if (err.status == 0) { // API unavailable
           this.error = 'Le serveur n\'est pas disponible.';
         } else if (err.status == 400) { // Bad request : the parameters are invalid
