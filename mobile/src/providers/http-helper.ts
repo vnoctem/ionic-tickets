@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { AppSettings } from './app-settings';
 
 /*
   Generated class for the HttpHelper provider.
@@ -10,7 +11,9 @@ import { ToastController } from 'ionic-angular';
 @Injectable()
 export class HttpHelper {
 
-  constructor(public toast: ToastController) {
+  private socialBaseUrl: string = this.appSettings.getSocialBaseUrl();
+
+  constructor(public toast: ToastController, public appSettings: AppSettings) {
 
   }
 
@@ -32,18 +35,6 @@ export class HttpHelper {
       .present();
   }
 
-  // Manage commun errors
-  public onHttpError(err: any) {
-    let message = '';
-    if (err.status == 0) { // API unavailable
-      message = 'Le serveur n\'est pas disponible';
-    }
-    return Promise.reject({
-      'message': message,
-      'source': err
-    });
-  }
-
   // Return the good URL path for the image
   public displayImage(image: string) {
     let regexURL = new RegExp('^https?:?(\/\/)?.+$');
@@ -51,7 +42,7 @@ export class HttpHelper {
     if (regexURL.test(image)) { // Image is an URL, return as it is
       return image;
     } else { // Image is not an URL, return path to image
-      return `https://gti525-social-network.herokuapp.com/${image}`
+      return `${this.socialBaseUrl}/${image}`
     }
   }
 

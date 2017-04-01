@@ -16,7 +16,6 @@ import { FriendController } from './../providers/friend-controller';
 import { ProVersionController } from './../providers/pro-version-controller';
 import { SharedService } from './../providers/shared-service';
 import { AppSettings } from './../providers/app-settings';
-import { AdBannerController } from './../providers/ad-banner-controller';
 import { ShowController } from './../providers/show-controller';
 import { StorageService } from './../providers/storage-service';
 import { InternetService } from './../providers/internet-service';
@@ -58,7 +57,6 @@ import { QRCodeModule } from 'angular2-qrcode';
     AppSettings,
     ProVersionController,
     SharedService,
-    AdBannerController,
     FriendController,
     ShowController,
     InternetService,

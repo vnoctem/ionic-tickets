@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 const CONFIG = {
+  socialBaseUrl: 'https://gti525-social-network.herokuapp.com',
   socialApiUrl: 'https://gti525-social-network.herokuapp.com/api/v1',
   socialApiTokenUrl: 'https://gti525-social-network.herokuapp.com/oauth/token',
   socialApiClientId: '32',
@@ -18,16 +19,12 @@ const CONFIG = {
 @Injectable()
 export class AppSettings {
 
+  public getSocialBaseUrl() {
+    return CONFIG.socialBaseUrl;
+  }
+
   public getSocialApiUrl() {
     return CONFIG.socialApiUrl;
-  }
-
-  public getPaymentApiUrl() {
-    return CONFIG.paymentApiUrl;
-  }
-
-  public getAdApiUrl() {
-    return CONFIG.adApiUrl;
   }
 
   public getSocialApiTokenUrl() {
@@ -40,6 +37,10 @@ export class AppSettings {
 
   public getSocialApiClientSecret() {
     return CONFIG.socialApiClientSecret;
+  }
+
+  public getPaymentApiUrl() {
+    return CONFIG.paymentApiUrl;
   }
 
   public getPaymentApiKey() {
