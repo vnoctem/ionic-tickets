@@ -87,6 +87,13 @@ export class MyApp implements OnDestroy {
           if (this.authCtrl.getCurrentUser().proVersion) {
             // remove pro version menu link since it's already a pro version
             this.pages[2].active = false;
+          } else {
+            this.ProSubscription = this.sharedService.getProSubject()
+              .subscribe(() => {
+                // update menu links
+                this.pages[2].active = false;
+              });
+            this.hasProSubscription = true;
           }
         } else {
           this.rootPage = AuthenticationPage;
@@ -145,10 +152,10 @@ export class MyApp implements OnDestroy {
                 this.pages[2].active = false;
               } else {
                 this.ProSubscription = this.sharedService.getProSubject()
-                .subscribe(() => {
-                  // update menu links
-                  this.pages[2].active = false;
-                });
+                  .subscribe(() => {
+                    // update menu links
+                    this.pages[2].active = false;
+                  });
                 this.hasProSubscription = true;
               }
               // need to be the last line so that all code could be executed
@@ -187,7 +194,7 @@ export class MyApp implements OnDestroy {
       this.AuthSubscription.unsubscribe();
     }
     if (this.hasProSubscription) {
-      this.ProSubscription.unsubscribe();      
+      this.ProSubscription.unsubscribe();
     }
     this.disconnectSubscription.unsubscribe();
     this.connectSubscription.unsubscribe();
