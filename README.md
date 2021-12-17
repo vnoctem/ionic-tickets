@@ -1,1 +1,1 @@
-# h17-mobile
+# Ionic app - E-tickets wallet
